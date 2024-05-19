@@ -19,6 +19,10 @@ const Insert = () => {
   // console.log(formdata)
   async function submitfun(e){
       e.preventDefault();
+      if(formdata.title==="" || formdata.author ==="" || formdata.descrip===""||formdata.price===""){
+        toast.error("All Fields are required"); // Show error toast
+        return ;
+      }
       try {
         await axios.post(`${process.env.REACT_APP_API_URL}insert`,formdata)
         
@@ -41,7 +45,7 @@ const Insert = () => {
   return (
     <div className="insert ">
       <div className="container ">
-        <h1 className="mt-sm-5 text-center">Add Book</h1>
+        <h1 className="mt-sm-3 text-center">Add Book</h1>
         <form className=" m-auto my-5"  onSubmit={submitfun}>
           <div className="mb-3">
             <label className="form-label">Title</label>
@@ -84,7 +88,7 @@ const Insert = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-primary  w-100">
             Submit
           </button>
         </form>
