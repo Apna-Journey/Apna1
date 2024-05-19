@@ -43,7 +43,7 @@ const BookStore = () => {
   return (
     <div className="container">
       <div className="row">
-        {dataarr && dataarr.map((item, i) => {
+        {dataarr && dataarr.length && dataarr.map((item, i) => {
           return <Book key={i} item={item} deleteItem={deleteItem} i={i} />;
         })}
       </div>
