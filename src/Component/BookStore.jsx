@@ -10,7 +10,7 @@ const BookStore = () => {
   useEffect(()=>{
     
     callApi();
-  },[])
+  },[dataarr])
   const callApi = async () => {
     try {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}book`);
