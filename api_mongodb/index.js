@@ -27,6 +27,9 @@ mongoose.connect(process.env.DBURL)
 
 
 // Routes
+app.get("/check",(req,resp)=>{
+  resp.send("Checkded api")
+})
 app.get('/book', async (req, resp) => {
   try {
     const books = await Book.find();
