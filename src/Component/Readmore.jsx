@@ -18,10 +18,10 @@ const Readmore = () => {
       const res = await axios.get(`${process.env.REACT_APP_API_URL}update/` + id);
       // console.log(res.data);
       setFormdata({
-        title: res.data[0].title,
-        author: res.data[0].author,
-        descrip: res.data[0].descrip,
-        price: res.data[0].price,
+        title: res.data.title,
+        author: res.data.author,
+        descrip: res.data.descrip,
+        price: res.data.price,
       });
     };
     fetchData();

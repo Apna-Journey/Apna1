@@ -2,13 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Menu from "./Menu";
 const Book = ({ item, i, deleteItem }) => {
+  // console.log(item)
   return (
     <div className="col-sm-6 col-md-4 col-lg-3">
       <div className="card">
         <div className="card-header lead d-flex justify-content-between">
         <span>Book: {item.title.length > 15 ? item.title.slice(0, 15) + '...' : item.title}</span>
           <span style={{ cursor: "pointer",position:"relative" }}>
-            <Menu deleteItem={deleteItem} id={item.id} />
+            <Menu deleteItem={deleteItem} id={item._id} />
           </span>
         </div>
         <img
@@ -22,7 +23,7 @@ const Book = ({ item, i, deleteItem }) => {
         </div>
         <div className="card-footer text-body-secondary d-flex justify-content-between align-items-center">
           <div>Price : {item.price}</div>
-          <Link className="btn btn-secondary btn-sm" to={`/readmore/${item.id}`}>Read More</Link>
+          <Link className="btn btn-secondary btn-sm" to={`/readmore/${item._id}`}>Read More</Link>
         </div>
       </div>
     </div>

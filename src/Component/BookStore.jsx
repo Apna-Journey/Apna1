@@ -25,9 +25,10 @@ const BookStore = () => {
     try {
       
       const res=await axios.delete(`${process.env.REACT_APP_API_URL}delete/`+delid);
-      console.log(res.data.affectedRows)
-      if(res.data.affectedRows===1){
-        toast.success("Delete successful!"); 
+      // console.log(res.data)
+      // console.log(res.data.deletedCount)
+      if(res.data.deletedCount===1){
+        toast.warning("Book Deleted Successfully"); 
         callApi();
       }else{
         toast.success("Already Deleted!"); 
