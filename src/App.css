@@ -1,0 +1,43 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.row{
+  margin-top: 2rem;
+}
+.card{
+  margin-bottom: 1rem;
+}
+.card img{
+  width:150px;
+  margin: auto;
+}
+
+form{
+  width:400px;
+  padding:1rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 7px;
+}
+
+@media only screen and (max-width: 429px) {
+  form{
+    width:350px;
+  }
+}
+
+
+@media only screen and (max-width: 382px) {
+  form{
+    width:300px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  form{
+    width:280px;
+  }
+}
+
