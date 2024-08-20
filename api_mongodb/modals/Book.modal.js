@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-// Book schema and model
 const bookSchema = new mongoose.Schema({
-    title: String,
-    descrip: String,
-    price: String,
-    author: String
+  title: { type: String, required: true },
+  author: { type: String, required: true },
+  description: { type: String, required: true },
+  price: { type: Number, required: true }
+  // Remove genre and year if not needed
 });
-//created a modal
+
 export const Book = mongoose.model('Book', bookSchema);

@@ -1,54 +1,53 @@
 import React, { useEffect, useState } from "react";
-
-import Book from "./Book";
+import axios from "axios";
+import Company from "./Book";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+
 const BookStore = () => {
- 
-  const [dataarr,setDataarr]=useState([]);
-  useEffect(()=>{
-    
+  const [dataarr, setDataarr] = useState([]);
+
+  useEffect(() => {
     callApi();
-  },[dataarr])
+  }, []);
+
   const callApi = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_API_URL}book`);
-      // console.log(res.data);
+      const res = await axios.get("http://localhost:8800/api/book");
       setDataarr(res.data);
     } catch (err) {
-      console.log(err);
+      console.error("Error fetching companies:", err);
+      toast.error("Error fetching companies");
     }
   };
 
-  const deleteItem=async(delid)=>{
+  const deleteItem = async (delid) => {
     try {
-      
-      const res=await axios.delete(`${process.env.REACT_APP_API_URL}delete/`+delid);
-      // console.log(res.data)
-      // console.log(res.data.deletedCount)
-      if(res.data.deletedCount===1){
-        toast.warning("Book Deleted Successfully"); 
+      const res = await axios.delete(`http://localhost:8800/api/book/${delid}`);
+      if (res.status === 200) {
+        toast.warning("Company Deleted Successfully");
         callApi();
-      }else{
-        toast.success("Already Deleted!"); 
+      } else {
+        toast.success("Already Deleted!");
       }
-
     } catch (error) {
-      toast.error("Error occurred during insertion!"); // Show error toast
-      
+      toast.error("Error occurred during deletion!");
     }
-  }
+  };
 
   return (
     <div className="container">
       <div className="row">
-        {dataarr && dataarr.map((item, i) => {
-          return <Book key={i} item={item} deleteItem={deleteItem} i={i} />;
-        })}
+        {dataarr && dataarr.map((item, i) => (
+          <Company 
+            key={i} 
+            item={item} 
+            deleteItem={deleteItem} 
+            i={i} 
+          />
+        ))}
       </div>
-      <ToastContainer /> {/* Toast container */}
-
+      <ToastContainer />
     </div>
   );
 };

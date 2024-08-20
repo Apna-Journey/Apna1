@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { MdDelete, MdOutlineBrowserUpdated } from "react-icons/md";
+import { MdDelete} from "react-icons/md";
 import { CiMenuKebab } from "react-icons/ci";
 const Menu = ({deleteItem,id}) => {
   
@@ -13,9 +13,6 @@ const Menu = ({deleteItem,id}) => {
           <ul className="list-group list-group-flush">
             <li className="list-group-item" onClick={()=>{deleteItem(id);setShow(!show);}}>
               <MdDelete />
-            </li>
-            <li className="list-group-item" onClick={()=>setShow(!show)} >
-              <Link to={`/update/${id}`}><MdOutlineBrowserUpdated /></Link>
             </li>
           </ul>
         </div>
