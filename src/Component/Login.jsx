@@ -31,7 +31,7 @@ const Login = () => {
   };
 
   const handleToggle = () => {
-    setToggle(!toggle);
+    setToggle((prevToggle) => !prevToggle);
   };
 
   const containerStyle = {
@@ -39,23 +39,23 @@ const Login = () => {
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundColor: '#f0f4f8', // Light background color
-    perspective: '1000px', // 3D effect
+    backgroundColor: '#f0f4f8',
+    perspective: '1000px',
   };
 
   const boxStyle = {
     width: '400px',
     padding: '40px',
     borderRadius: '15px',
-    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)', // Shadow for 3D effect
+    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
     backgroundColor: '#ffffff',
-    transform: 'rotateY(10deg)', // 3D rotation
+    transform: 'rotateY(10deg)',
     transition: 'transform 0.6s ease',
     textAlign: 'center',
   };
 
   const boxHoverStyle = {
-    transform: 'rotateY(0)', // Reset rotation on hover
+    transform: 'rotateY(0)',
   };
 
   const inputStyle = {
@@ -85,7 +85,7 @@ const Login = () => {
   };
 
   const buttonHoverStyle = {
-    backgroundColor: '#cc5200', // Darker orange on hover
+    backgroundColor: '#cc5200',
   };
 
   const titleStyle = {
