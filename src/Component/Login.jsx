@@ -84,10 +84,6 @@ const Login = () => {
     transition: 'all 0.3s ease',
   };
 
-  const buttonHoverStyle = {
-    backgroundColor: '#cc5200',
-  };
-
   const titleStyle = {
     fontSize: '2rem',
     color: '#007BFF',
