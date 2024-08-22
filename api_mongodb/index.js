@@ -29,7 +29,7 @@ mongoose.connect(process.env.DBURL)
 app.use('/api/auth', authRoutes);
 app.use('/api/book', bookRoutes); // Use book routes
 app.get("/",(req,resp)=>{
-  resp.send("hello uncle")
+  resp.send("Anything")
 })
 const port = 8800;
 app.listen(port, () => {
