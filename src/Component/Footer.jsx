@@ -56,8 +56,8 @@ const Footer = () => {
       <div style={sectionStyle}>
         <h4>Support</h4>
         <ul style={{ listStyle: 'none', padding: 0 }}>
-          <li>ApnaJourney02@gmail.com</li>
-          <li>+91 7371083339</li>
+          {/* <li>ApnaJourney02@gmail.com</li>
+          <li>+91 7371083339</li> */}
         </ul>
       </div>
 
@@ -70,7 +70,7 @@ const Footer = () => {
             </Link>
           </li>
           <li>
-            <Link to="https://www.linkedin.com/in/anandsingh76/" style={linkStyle}>
+            <Link to="/" style={linkStyle}>
               <FaLinkedin /> LinkedIn
             </Link>
           </li>
