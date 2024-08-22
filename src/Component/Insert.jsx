@@ -28,7 +28,7 @@ const Insert = () => {
     }
 
     try {
-      await axios.post("http://localhost:8800/api/book/", formdata);
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}api/book`, formdata);
       toast.success("Insertion successful!");
       setFormdata({
         title: "",

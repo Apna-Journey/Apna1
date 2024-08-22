@@ -13,7 +13,7 @@ const BookStore = () => {
 
   const callApi = async () => {
     try {
-      const res = await axios.get("http://localhost:8800/api/book");
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}api/book`);
       setDataarr(res.data);
     } catch (err) {
       console.error("Error fetching companies:", err);
@@ -23,7 +23,7 @@ const BookStore = () => {
 
   const deleteItem = async (delid) => {
     try {
-      const res = await axios.delete(`http://localhost:8800/api/book/${delid}`);
+      const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}${delid}`);
       if (res.status === 200) {
         toast.warning("Company Deleted Successfully");
         callApi();

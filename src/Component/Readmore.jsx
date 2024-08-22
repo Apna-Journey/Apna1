@@ -14,7 +14,7 @@ const Readmore = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`http://localhost:8800/api/book/` + id);
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}api/book/` + id);
       setFormdata({
         title: res.data.title,
         author: res.data.author,
