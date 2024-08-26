@@ -23,7 +23,7 @@ const BookStore = () => {
 
   const deleteItem = async (delid) => {
     try {
-      const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}${delid}`);
+      const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}api/book/${delid}`);
       if (res.status === 200) {
         toast.warning("Company Deleted Successfully");
         callApi();
