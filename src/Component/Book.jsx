@@ -7,7 +7,7 @@ const Book = ({ item, deleteItem, i }) => {
     <div className="col-sm-6 col-md-4 col-lg-3">
       <div className="card">
         <div className="card-header lead d-flex justify-content-between">
-          <span>Company: {item.title.length > 15 ? item.title.slice(0, 15) + '...' : item.title}</span>
+          <span>{item.title.length > 15 ? item.title.slice(0, 15) + '...' : item.title}</span>
           <span style={{ cursor: "pointer" }}>
             <Menu deleteItem={deleteItem} id={item._id} />
           </span>

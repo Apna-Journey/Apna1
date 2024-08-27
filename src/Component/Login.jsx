@@ -11,8 +11,6 @@ const Login = () => {
     password: "",
   });
 
-  const [toggle, setToggle] = useState(false);
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -28,10 +26,6 @@ const Login = () => {
     } catch (error) {
       toast.error("Login failed. Please check your credentials.");
     }
-  };
-
-  const handleToggle = () => {
-    setToggle((prevToggle) => !prevToggle);
   };
 
   const containerStyle = {
@@ -122,7 +116,7 @@ const Login = () => {
           required
         />
         <input
-          type={toggle ? "text" : "password"}
+          type="password"
           name="password"
           placeholder="Password"
           value={formData.password}
@@ -132,9 +126,6 @@ const Login = () => {
           onBlur={(e) => e.currentTarget.style.border = '2px solid #007BFF'}
           required
         />
-        <button type="button" onClick={handleToggle} style={buttonStyle}>
-          {toggle ? "Hide" : "Show"} Password
-        </button>
         <button type="submit" onClick={handleSubmit} style={buttonStyle}>
           Login
         </button>
