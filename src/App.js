@@ -11,6 +11,7 @@ import Register from "./Component/Register";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from "./Component/Footer";
+import "./index.js";
 
 function App() {
   return (

@@ -21,15 +21,15 @@ const Hero = () => {
   };
 
   return (
-    <section className="hero" style={{ marginTop: '60px', textAlign: 'center' }}>
-      <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Welcome to Apna Journey</h1>
-      <h4 style={{ fontSize: '1rem', marginBottom: '30px' }}>Create and manage your company profiles with ease.</h4>
+    <section className="hero" style={{ marginTop: '60px', textAlign: 'center', padding: '0 20px' }}>
+      <h1 style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', marginBottom: '20px' }}>Welcome to Apna Journey</h1>
+      <h4 style={{ fontSize: 'clamp(0.8rem, 3vw, 1rem)', marginBottom: '30px' }}>Create and manage your company profiles with ease.</h4>
       <div 
         style={textStyle}
         onMouseEnter={(e) => Object.assign(e.currentTarget.style, textHoverStyle)}
         onMouseLeave={(e) => Object.assign(e.currentTarget.style, textStyle)}
       >
-        <p>
+        <p style={{ fontSize: 'clamp(0.9rem, 2.5vw, 1rem)' }}>
           Apna Journey is a dynamic platform designed to simplify the creation and management of company profiles. Tailored for businesses of all sizes, it empowers users to effortlessly build and update their profiles, offering a seamless experience for startups. With an intuitive interface and robust features, Apna Journey streamlines the process of showcasing company details, sharing updates, and connecting with potential clients and partners. Its user-friendly tools enable efficient profile management, ensuring that businesses can maintain accurate and engaging profiles with minimal effort. Whether you are a small startup or a growing enterprise, Apna Journey is your go-to solution for professional profile management and enhanced business visibility.
         </p>
       </div>
@@ -57,7 +57,7 @@ const TopNiches = () => {
   ];
 
   return (
-    <section className="services" style={{ marginTop: '50px', textAlign: 'center' }}>
+    <section className="services" style={{ marginTop: '50px', textAlign: 'center', padding: '0 20px' }}>
       <h3 
         style={{ 
           color: 'darkgreen', 
@@ -65,7 +65,8 @@ const TopNiches = () => {
           display: 'inline-block',
           transition: 'color 0.3s ease',
           padding: '5px 10px',
-          borderRadius: '5px'
+          borderRadius: '5px',
+          fontSize: 'clamp(1.2rem, 4vw, 1.5rem)',
         }}
         onMouseEnter={(e) => e.currentTarget.style.color = 'black'}
         onMouseLeave={(e) => e.currentTarget.style.color = 'darkgreen'}
@@ -74,23 +75,19 @@ const TopNiches = () => {
       </h3>
       <div style={{ 
         display: 'flex', 
-        justifyContent: 'space-between', 
-        marginTop: '30px',
+        flexDirection: 'column',
         gap: '20px',
-        padding: '0 20px',
+        marginTop: '30px',
       }}>
-        {services.map((element, index) => (
+        {services.map((element) => (
           <div 
             key={element.id}
             style={{ 
-              flex: 1,
               backgroundColor: '#fff5e6',
               border: '2px solid #006400',
               borderRadius: '15px',
               padding: '20px',
-              transition: 'all 2s ease',
-              marginLeft: index === 0 ? '20px' : '',
-              marginRight: index === services.length - 1 ? '20px' : '',
+              transition: 'all 0.3s ease',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = 'black';
@@ -101,8 +98,8 @@ const TopNiches = () => {
               e.currentTarget.style.color = 'initial';
             }}
           >
-            <h4>{element.service}</h4>
-            <p>{element.description}</p>
+            <h4 style={{ fontSize: 'clamp(1rem, 3vw, 1.2rem)' }}>{element.service}</h4>
+            <p style={{ fontSize: 'clamp(0.8rem, 2.5vw, 1rem)' }}>{element.description}</p>
           </div>
         ))}
       </div>
@@ -129,7 +126,7 @@ const HowItWorks = () => {
   };
 
   return (
-    <section className="howItWorks" style={{ marginTop: '60px', marginBottom: '60px' }}>
+    <section className="howItWorks" style={{ marginTop: '60px', marginBottom: '60px', padding: '0 20px' }}>
       <h3 
         style={{ 
           color: 'darkgreen', 
@@ -139,6 +136,7 @@ const HowItWorks = () => {
           backgroundColor: 'white',
           borderRadius: '15px',
           transition: 'color 0.3s ease',
+          fontSize: 'clamp(1.2rem, 4vw, 1.5rem)',
         }}
         onMouseEnter={(e) => e.currentTarget.style.color = 'black'}
         onMouseLeave={(e) => e.currentTarget.style.color = 'darkgreen'}
@@ -162,11 +160,11 @@ const HowItWorks = () => {
             onMouseEnter={(e) => Object.assign(e.currentTarget.style, cardHoverStyle)}
             onMouseLeave={(e) => Object.assign(e.currentTarget.style, cardStyle)}
           >
-            <div className="icon" style={{ color: 'orange' }}>
+            <div className="icon" style={{ color: 'orange', fontSize: 'clamp(2rem, 6vw, 3rem)' }}>
               {item.icon}
             </div>
-            <h4>{item.title}</h4>
-            <p>{item.description}</p>
+            <h4 style={{ fontSize: 'clamp(1rem, 3vw, 1.2rem)' }}>{item.title}</h4>
+            <p style={{ fontSize: 'clamp(0.8rem, 2.5vw, 1rem)' }}>{item.description}</p>
           </div>
         ))}
       </div>
