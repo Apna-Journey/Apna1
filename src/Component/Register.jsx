@@ -12,11 +12,10 @@ const Register = () => {
 
   const handleRegister = async () => {
     try {
-
       await axios.post(`${process.env.REACT_APP_BACKEND_URL}api/auth/register`, {
         email,
         username,
-        password
+        password,
       });
       toast.success('Registration successful!');
       navigate('/login'); // Redirect to login page after registration
@@ -35,7 +34,8 @@ const Register = () => {
   };
 
   const boxStyle = {
-    width: '400px',
+    width: '100%',
+    maxWidth: '400px',
     padding: '40px',
     borderRadius: '15px',
     boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)', // Shadow for 3D effect
@@ -105,56 +105,58 @@ const Register = () => {
 
   return (
     <div style={containerStyle}>
-      <div 
-        style={boxStyle} 
+      <div
+        style={boxStyle}
         onMouseEnter={(e) => Object.assign(e.currentTarget.style, boxHoverStyle)}
         onMouseLeave={(e) => Object.assign(e.currentTarget.style, boxStyle)}
       >
         <h2 style={titleStyle}>Register</h2>
         <p style={subtitleStyle}>Create a new account by filling the form below.</p>
-        <input 
-          type="email" 
-          placeholder="Email" 
-          value={email} 
-          onChange={e => setEmail(e.target.value)} 
-          style={inputStyle} 
-          onFocus={(e) => e.currentTarget.style.border = '2px solid #FF6600'}
-          onBlur={(e) => e.currentTarget.style.border = '2px solid #007BFF'}
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={inputStyle}
+          onFocus={(e) => (e.currentTarget.style.border = '2px solid #FF6600')}
+          onBlur={(e) => (e.currentTarget.style.border = '2px solid #007BFF')}
         />
-        <input 
-          type="text" 
-          placeholder="Username" 
-          value={username} 
-          onChange={e => setUsername(e.target.value)} 
-          style={inputStyle} 
-          onFocus={(e) => e.currentTarget.style.border = '2px solid #FF6600'}
-          onBlur={(e) => e.currentTarget.style.border = '2px solid #007BFF'}
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          style={inputStyle}
+          onFocus={(e) => (e.currentTarget.style.border = '2px solid #FF6600')}
+          onBlur={(e) => (e.currentTarget.style.border = '2px solid #007BFF')}
         />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          value={password} 
-          onChange={e => setPassword(e.target.value)} 
-          style={inputStyle} 
-          onFocus={(e) => e.currentTarget.style.border = '2px solid #FF6600'}
-          onBlur={(e) => e.currentTarget.style.border = '2px solid #007BFF'}
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          style={inputStyle}
+          onFocus={(e) => (e.currentTarget.style.border = '2px solid #FF6600')}
+          onBlur={(e) => (e.currentTarget.style.border = '2px solid #007BFF')}
         />
-        <button 
-          onClick={handleRegister} 
-          style={buttonStyle} 
+        <button
+          onClick={handleRegister}
+          style={buttonStyle}
           onMouseEnter={(e) => Object.assign(e.currentTarget.style, buttonHoverStyle)}
           onMouseLeave={(e) => Object.assign(e.currentTarget.style, buttonStyle)}
         >
           Register
         </button>
         <p>
-          Already have an account? 
-          <a 
-            href="/login" 
-            style={linkStyle} 
+          Already have an account?{' '}
+          <a
+            href="/login"
+            style={linkStyle}
             onMouseEnter={(e) => Object.assign(e.currentTarget.style, linkHoverStyle)}
             onMouseLeave={(e) => Object.assign(e.currentTarget.style, linkStyle)}
-          > Login here</a>
+          >
+            Login here
+          </a>
         </p>
       </div>
       <ToastContainer />

@@ -1,8 +1,6 @@
+import React from "react";
 import { Link } from "react-router-dom";
-import {
-  FaSquareXTwitter,
-  FaLinkedin,
-} from "react-icons/fa6";
+import { FaSquareXTwitter, FaLinkedin } from "react-icons/fa6";
 
 const Footer = () => {
   const footerStyle = {
@@ -17,6 +15,11 @@ const Footer = () => {
   const sectionStyle = {
     flex: '1 1 200px',
     margin: '0 20px 20px 0',
+    minWidth: '150px',
+    '@media (max-width: 768px)': {
+      flex: '1 1 100%',
+      margin: '0 0 20px 0',
+    },
   };
 
   const linkStyle = {

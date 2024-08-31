@@ -32,20 +32,25 @@ const Login = () => {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '100vh',
+    minHeight: '100vh',
     backgroundColor: '#f0f4f8',
     perspective: '1000px',
+    padding: '20px',
   };
 
   const boxStyle = {
-    width: '400px',
-    padding: '40px',
+    width: '100%',
+    maxWidth: '400px',
+    padding: 'clamp(20px, 5vw, 40px)',
     borderRadius: '15px',
     boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
     backgroundColor: '#ffffff',
     transform: 'rotateY(10deg)',
     transition: 'transform 0.6s ease',
     textAlign: 'center',
+    '@media (max-width: 768px)': {
+      transform: 'none',
+    },
   };
 
   const boxHoverStyle = {
@@ -54,12 +59,12 @@ const Login = () => {
 
   const inputStyle = {
     width: '100%',
-    padding: '15px',
+    padding: 'clamp(10px, 3vw, 15px)',
     margin: '10px 0',
     borderRadius: '25px',
     border: '2px solid #007BFF',
     outline: 'none',
-    fontSize: '1rem',
+    fontSize: 'clamp(0.875rem, 2vw, 1rem)',
     color: '#333',
     backgroundColor: '#f9f9f9',
     transition: 'all 0.3s ease',
@@ -67,19 +72,19 @@ const Login = () => {
 
   const buttonStyle = {
     width: '100%',
-    padding: '15px',
+    padding: 'clamp(10px, 3vw, 15px)',
     margin: '20px 0',
     borderRadius: '25px',
     border: 'none',
     backgroundColor: '#FF6600',
     color: '#fff',
-    fontSize: '1rem',
+    fontSize: 'clamp(0.875rem, 2vw, 1rem)',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
   };
 
   const titleStyle = {
-    fontSize: '2rem',
+    fontSize: 'clamp(1.5rem, 5vw, 2rem)',
     color: '#007BFF',
     marginBottom: '20px',
     fontWeight: 'bold',

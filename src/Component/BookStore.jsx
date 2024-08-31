@@ -3,10 +3,12 @@ import axios from "axios";
 import Company from "./Book";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Search } from "lucide-react";
 
 const BookStore = () => {
   const [dataarr, setDataarr] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     callApi();
@@ -74,9 +76,56 @@ const BookStore = () => {
     }
   `;
 
+  const searchBoxStyle = {
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    marginBottom: "20px",
+    position: "relative",
+  };
+
+  const inputStyle = {
+    padding: "10px",
+    paddingRight: "40px",
+    fontSize: "16px",
+    border: "2px solid #FF8C00",
+    borderRadius: "20px",
+    width: "300px",
+    outline: "none",
+    color: "#333",
+    backgroundColor: "#FFF8DC",
+  };
+
+  const searchIconStyle = {
+    position: "absolute",
+    right: "10px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    color: "black",
+    cursor: "pointer",
+  };
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filteredData = dataarr.filter((item) =>
+    item.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container" style={{ marginTop: "50px" }}>
       <style>{shimmerKeyframes}</style>
+      <div style={searchBoxStyle}>
+        <input
+          type="text"
+          placeholder="Search..."
+          style={inputStyle}
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+        <Search style={searchIconStyle} size={24} />
+      </div>
       <div className="row">
         {loading ? (
           <div style={shimmerStyle}>
@@ -87,8 +136,7 @@ const BookStore = () => {
             ))}
           </div>
         ) : (
-          dataarr &&
-          dataarr.map((item, i) => (
+          filteredData.map((item, i) => (
             <Company key={i} item={item} deleteItem={deleteItem} i={i} />
           ))
         )}

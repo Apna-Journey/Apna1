@@ -42,17 +42,17 @@ const TopNiches = () => {
     {
       id: 1,
       service: "Networking",
-      description: "Targets established companies looking to enhance their market presence, streamline profile management, and engage with industry peers and potential clients.",
+      description: "Targets established companies looking to enhance their market presence, streamline profile management, and engage with industry peers and potential clients. This service is designed to support businesses that are already well-positioned in their industry, providing them with the tools to further expand their reach and influence. By connecting with other industry leaders and fostering meaningful collaborations, companies can solidify their brand, explore new market opportunities, and stay ahead of the competition. Whether it's about building stronger relationships with existing clients or exploring partnerships with new ones, this service offers a comprehensive approach to elevating your business presence.",
     },
     {
       id: 2,
       service: "Startup Ecosystems",
-      description: "Focuses on emerging startups, providing a platform for new businesses to establish and promote their profiles, connect with investors, and network with other entrepreneurs.",
+      description: "Focuses on emerging startups, providing a comprehensive platform for new businesses to establish and promote their profiles, connect with investors, and network with other entrepreneurs. This service is tailored to the unique needs of startups, offering them the tools and support they need to navigate the challenges of early-stage growth. By creating a strong and visible presence, startups can attract the attention of potential investors, collaborators, and customers. Additionally, the platform fosters a vibrant community of like-minded entrepreneurs, enabling startups to share insights, explore partnerships, and gain valuable exposure in the market. This service empowers startups to lay a solid foundation for their business journey, ensuring they have the resources and connections needed to thrive in a competitive landscape.",
     },
     {
       id: 3,
       service: "Professional Services",
-      description: "Assists firms in sectors like legal, accounting, and consulting by allowing them to manage detailed profiles, showcase services, and connect with potential clients.",
+      description: "Assists firms in sectors like legal, accounting, and consulting by providing them with a robust platform to manage detailed profiles, showcase services, and connect with potential clients. This service is designed to cater to the specific needs of professional service firms, enabling them to present their expertise and unique value propositions in a compelling way. Through this platform, firms can highlight their accomplishments, display client testimonials, and outline their service offerings, all while maintaining a polished and professional online presence. Additionally, the platform facilitates connections with potential clients, partners, and industry peers, helping firms to expand their network, generate leads, and grow their business. By offering a comprehensive solution for profile management and client engagement, this service ensures that professional firms can maintain a strong market presence and continue to build their reputation in their respective fields.",
     },
   ];
 
@@ -78,6 +78,11 @@ const TopNiches = () => {
         flexDirection: 'column',
         gap: '20px',
         marginTop: '30px',
+        '@media (min-width: 1024px)': {
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          padding: '0 5%',
+        }
       }}>
         {services.map((element) => (
           <div 
@@ -88,6 +93,11 @@ const TopNiches = () => {
               borderRadius: '15px',
               padding: '20px',
               transition: 'all 0.3s ease',
+              flex: 1,
+              margin: '0 10px',
+              '@media (max-width: 1023px)': {
+                margin: '10px 0',
+              }
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.backgroundColor = 'black';

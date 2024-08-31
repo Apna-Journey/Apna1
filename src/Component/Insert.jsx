@@ -49,7 +49,7 @@ const Insert = () => {
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: '100vh',
-    backgroundColor: '#E0F7FA', // Light teal background
+    backgroundColor: '#E0F7FA',
     padding: '20px',
     perspective: '1000px',
   };
@@ -59,12 +59,16 @@ const Insert = () => {
     maxWidth: '550px',
     padding: '40px',
     borderRadius: '12px',
-    backgroundColor: '#FFFFFF', // White background for the form
+    backgroundColor: '#FFFFFF',
     boxShadow: '0 15px 30px rgba(0, 0, 0, 0.15)',
     transform: 'rotateY(5deg)',
     transition: 'all 0.5s ease',
     textAlign: 'center',
     position: 'relative',
+    '@media (max-width: 768px)': {
+      padding: '30px',
+      transform: 'none',
+    },
   };
 
   const formHoverStyle = {
@@ -72,10 +76,10 @@ const Insert = () => {
   };
 
   const titleStyle = {
-    color: '#00796B', // Teal color
+    color: '#00796B',
     textAlign: 'center',
     marginBottom: '25px',
-    fontSize: '2.2rem',
+    fontSize: 'clamp(1.8rem, 4vw, 2.2rem)',
     fontWeight: 'bold',
     textShadow: '1px 1px 3px rgba(0,0,0,0.2)',
   };
@@ -84,24 +88,31 @@ const Insert = () => {
     width: '100%',
     padding: '14px',
     marginBottom: '18px',
-    border: '2px solid #B0BEC5', // Light grey-blue border
+    border: '2px solid #B0BEC5',
     borderRadius: '8px',
     fontSize: '16px',
     transition: 'border-color 0.3s ease',
+    '@media (max-width: 480px)': {
+      padding: '10px',
+      fontSize: '14px',
+    },
   };
 
   const labelStyle = {
     display: 'block',
     marginBottom: '8px',
-    color: '#455A64', // Dark grey color
+    color: '#455A64',
     fontSize: '16px',
     fontWeight: 'bold',
+    '@media (max-width: 480px)': {
+      fontSize: '14px',
+    },
   };
 
   const buttonStyle = {
     width: '100%',
     padding: '14px',
-    backgroundColor: '#FF7043', // Coral color
+    backgroundColor: '#FF7043',
     color: '#FFFFFF',
     border: 'none',
     borderRadius: '8px',
@@ -109,10 +120,14 @@ const Insert = () => {
     cursor: 'pointer',
     transition: 'background-color 0.3s ease',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+    '@media (max-width: 480px)': {
+      padding: '12px',
+      fontSize: '14px',
+    },
   };
 
   const buttonHoverStyle = {
-    backgroundColor: '#FF5722', // Darker coral on hover
+    backgroundColor: '#FF5722',
   };
 
   return (
