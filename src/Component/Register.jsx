@@ -12,25 +12,37 @@ const Register = () => {
 
   const handleRegister = async () => {
     try {
-      await axios.post(`${process.env.REACT_APP_BACKEND_URL}api/auth/register`, {
-        email,
-        username,
-        password,
-      });
+      // Check if email is already registered
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}api/auth/register`,
+        { email, username, password }
+      );
+
+      if (response.data.exists) {
+        toast.error(response.data.message);
+        return;
+      }
+
+      // Store token and redirect to /insert
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('username', response.data.username);
       toast.success('Registration successful!');
-      navigate('/login'); // Redirect to login page after registration
+      navigate('/insert'); // Redirect to /insert after registration
+
     } catch (error) {
       toast.error('Registration error: ' + (error.response?.data?.message || 'Network error'));
     }
   };
+
+  
 
   const containerStyle = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundColor: '#f0f4f8', // Light background color
-    perspective: '1000px', // 3D effect
+    backgroundColor: '#f0f4f8',
+    perspective: '1000px',
   };
 
   const boxStyle = {
@@ -38,15 +50,15 @@ const Register = () => {
     maxWidth: '400px',
     padding: '40px',
     borderRadius: '15px',
-    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)', // Shadow for 3D effect
+    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
     backgroundColor: '#ffffff',
-    transform: 'rotateY(10deg)', // 3D rotation
+    transform: 'rotateY(10deg)',
     transition: 'transform 0.6s ease',
     textAlign: 'center',
   };
 
   const boxHoverStyle = {
-    transform: 'rotateY(0)', // Reset rotation on hover
+    transform: 'rotateY(0)',
   };
 
   const inputStyle = {
@@ -76,7 +88,7 @@ const Register = () => {
   };
 
   const buttonHoverStyle = {
-    backgroundColor: '#cc5200', // Darker orange on hover
+    backgroundColor: '#cc5200',
   };
 
   const titleStyle = {
@@ -165,3 +177,5 @@ const Register = () => {
 };
 
 export default Register;
+
+

@@ -128,7 +128,8 @@ const Nav = () => {
           ) : (
             <>
               <NavLink to="/login" onClick={() => setIsOpen(false)}>Login</NavLink>
-              <NavLink to="/register" onClick={() => setIsOpen(false)}>Register</NavLink>
+              <NavLink to="/about" onClick={() => setIsOpen(false)}>About</NavLink>
+
             </>
           )}
         </NavLinks>

@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from "./Component/Footer";
 import "./index.js";
+import About from "./Component/about";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path='/' element={<BookStore />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/about' element={<About />} />
             <Route path='/register' element={<Register />} />
             <Route path="/home" element={<Home />} />
             <Route path='/footer' element={<Footer />} />
