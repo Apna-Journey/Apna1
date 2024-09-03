@@ -4,15 +4,26 @@ import Company from "./Book";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Search } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 const BookStore = () => {
   const [dataarr, setDataarr] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     callApi();
   }, []);
+
+  // Check if user is authenticated
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error("You must be logged in to create a profile.");
+      navigate('/login');
+    }
+  }, [navigate]);
+
 
   const callApi = async () => {
     try {
