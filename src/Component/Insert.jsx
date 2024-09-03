@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,6 +12,14 @@ const Insert = () => {
     descrip: "",
     price: ""
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error("You must be logged in to create a profile.");
+      navigate('/login');
+    }
+  }, [navigate]);
 
   function fromdatafun(e) {
     setFormdata((prev) => ({
