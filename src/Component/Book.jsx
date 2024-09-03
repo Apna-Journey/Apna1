@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Menu from "./Menu";
 
 const Book = ({ item, deleteItem, i }) => {
+  // const Book = ({ item, i }) => {
   return (
     <div className="col-sm-6 col-md-4 col-lg-3">
       <div className="card">
