@@ -1,5 +1,4 @@
-// Insert.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from 'axios';
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,18 +12,6 @@ const Insert = () => {
     descrip: "",
     price: ""
   });
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  useEffect(() => {
-    // Check if the user is authenticated
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-      navigate("/login");
-    }
-  }, [navigate]);
 
   function fromdatafun(e) {
     setFormdata((prev) => ({
@@ -56,9 +43,7 @@ const Insert = () => {
     }
 
     try {
-      await axios.post(`${process.env.REACT_APP_BACKEND_URL}api/book`, formdata, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-      });
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}api/book`, formdata);
       toast.success("Insertion successful!");
       setFormdata({
         title: "",

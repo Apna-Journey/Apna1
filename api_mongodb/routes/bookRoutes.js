@@ -1,5 +1,4 @@
 import express from 'express';
-import authMiddleware from '../middleware/authMiddleware.js'; 
 import {
   getBooks,
   createBook,
@@ -9,8 +8,6 @@ import {
 } from '../controllers/bookController.js';
 
 const router = express.Router();
-
-router.post('/', authMiddleware, createBook);
 
 // Get all books
 router.get('/', getBooks);
