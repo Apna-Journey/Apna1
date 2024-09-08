@@ -8,9 +8,9 @@ const Update = () => {
   const navigate=useNavigate();
   const [formdata, setFormdata] = useState({
     title: "",
-    author: "",
+    link: "",
     descrip: "",
-    price: "",
+    year: "",
   });
 
   function fromdatafun(e) {
@@ -26,9 +26,9 @@ const Update = () => {
       // console.log(res.data);
       setFormdata({
         title: res.data.title,
-        author: res.data.author,
+        link: res.data.link,
         descrip: res.data.descrip,
-        price: res.data.price,
+        year: res.data.year,
       });
     };
     fetchData();
@@ -52,26 +52,26 @@ const Update = () => {
   return (
     <div className="insert ">
       <div className="container ">
-        <h1 className="mt-sm-5 text-center">Update Book</h1>
+        <h1 className="mt-sm-5 text-center">Update Company</h1>
         <form className=" m-auto my-5"  onSubmit={submitfun}>
           <div className="mb-3">
-            <label className="form-label">Title</label>
+            <label className="form-label">Name</label>
             <input
               type="text"
               className="form-control"
               onChange={fromdatafun}
-              name="title"
-              value={formdata.title}
+              title="title"
+              value={formdata.name}
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Author</label>
+            <label className="form-label">Link</label>
             <input
               type="text"
               className="form-control"
               onChange={fromdatafun}
-              name="author"
-              value={formdata.author}
+              name="link"
+              value={formdata.link}
             />
           </div>
           <div className="mb-3">
@@ -85,13 +85,13 @@ const Update = () => {
             />
           </div>
           <div className="mb-3">
-            <label className="form-label">Price</label>
+            <label className="form-label">Year</label>
             <input
               type="text"
               className="form-control"
               onChange={fromdatafun}
-              name="price"
-              value={formdata.price}
+              name="year"
+              value={formdata.year}
             />
           </div>
 

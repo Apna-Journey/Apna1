@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Menu from "./Menu";
 
-const Book = ({ item, deleteItem, i }) => {
-  // const Book = ({ item, i }) => {
+const Company = ({ item, deleteItem, i }) => {
+  // const Company = ({ item, i }) => {
   return (
     <div className="col-sm-6 col-md-4 col-lg-3">
       <div className="card">
@@ -19,11 +19,11 @@ const Book = ({ item, deleteItem, i }) => {
           alt="Company logo"
         />
         <div className="card-body">
-          <p className="card-text fs-5">Website Link: {item.author}</p>
+          <p className="card-text fs-5">Website Link: {item.link}</p>
           <p className="card-text text-justify">Description: {item.descrip.slice(0, 80)}...</p>
         </div>
         <div className="card-footer text-body-secondary d-flex justify-content-between align-items-center">
-          <div>Year of Foundation: {item.price}</div>
+          <div>Year of Foundation: {item.year}</div>
           <Link className="btn btn-secondary btn-sm" to={`/readmore/${item._id}`}>Read More</Link>
         </div>
       </div>
@@ -31,4 +31,4 @@ const Book = ({ item, deleteItem, i }) => {
   );
 };
 
-export default Book;
+export default Company;

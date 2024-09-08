@@ -3,7 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import authRoutes from './routes/authRoutes.js';
-import bookRoutes from './routes/bookRoutes.js'; // Import book routes
+import companyRoutes from './routes/companyRoutes.js';
 
 dotenv.config();
 
@@ -27,7 +27,7 @@ mongoose.connect(process.env.DBURL)
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/book', bookRoutes); // Use book routes
+app.use('/api/company', companyRoutes); 
 app.get("/",(req,resp)=>{
   resp.send("Anything")
 })

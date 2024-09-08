@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Company from "./Book";
+import Company from "./Company";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-const BookStore = () => {
+const CompanyStore = () => {
   const [dataarr, setDataarr] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -27,7 +27,7 @@ const BookStore = () => {
 
   const callApi = async () => {
     try {
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}api/book`);
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}api/company`);
       setDataarr(res.data);
       setLoading(false);
     } catch (err) {
@@ -39,7 +39,7 @@ const BookStore = () => {
 
   const deleteItem = async (delid) => {
     try {
-      const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}api/book/${delid}`);
+      const res = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}api/company/${delid}`);
       if (res.status === 200) {
         toast.warning("Company Deleted Successfully");
         callApi();
@@ -157,4 +157,4 @@ const BookStore = () => {
   );
 };
 
-export default BookStore;
+export default CompanyStore;

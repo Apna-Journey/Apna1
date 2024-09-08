@@ -1,5 +1,5 @@
 import "./App.css";
-import BookStore from "./Component/BookStore";
+import CompanyStore from "./Component/CompanyStore";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Insert from "./Component/Insert";
 import Update from "./Component/Update";
@@ -20,7 +20,7 @@ function App() {
         <BrowserRouter>
           <Nav />
           <Routes>
-            <Route path='/' element={<BookStore />} />
+            <Route path='/' element={<CompanyStore />} />
             <Route path='/login' element={<Login />} />
             <Route path='/about' element={<About />} />
             <Route path='/register' element={<Register />} />

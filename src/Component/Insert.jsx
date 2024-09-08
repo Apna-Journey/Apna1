@@ -8,9 +8,9 @@ const Insert = () => {
   const navigate = useNavigate();
   const [formdata, setFormdata] = useState({
     title: "",
-    author: "",
+    link: "",
     descrip: "",
-    price: ""
+    year: ""
   });
 
   useEffect(() => {
@@ -40,24 +40,24 @@ const Insert = () => {
 
   async function submitfun(e) {
     e.preventDefault();
-    if (!formdata.title || !formdata.author || !formdata.descrip || !formdata.price) {
+    if (!formdata.title || !formdata.link || !formdata.descrip || !formdata.year) {
       toast.error("All fields are required");
       return;
     }
 
-    if (!isValidURL(formdata.author)) {
+    if (!isValidURL(formdata.link)) {
       toast.error("Please enter a valid website URL");
       return;
     }
 
     try {
-      await axios.post(`${process.env.REACT_APP_BACKEND_URL}api/book`, formdata);
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}api/company`, formdata);
       toast.success("Insertion successful!");
       setFormdata({
         title: "",
-        author: "",
+        link: "",
         descrip: "",
-        price: ""
+        year: ""
       });
       setTimeout(() => {
         navigate("/");
@@ -181,8 +181,8 @@ const Insert = () => {
               type="text"
               style={inputStyle}
               onChange={fromdatafun}
-              name="author"
-              value={formdata.author}
+              name="link"
+              value={formdata.link}
               placeholder="Enter website link"
               onFocus={(e) => e.currentTarget.style.borderColor = '#00796B'}
               onBlur={(e) => e.currentTarget.style.borderColor = '#B0BEC5'}
@@ -207,8 +207,8 @@ const Insert = () => {
               type="number"
               style={inputStyle}
               onChange={fromdatafun}
-              name="price"
-              value={formdata.price}
+              name="year"
+              value={formdata.year}
               placeholder="Enter foundation year"
               onFocus={(e) => e.currentTarget.style.borderColor = '#00796B'}
               onBlur={(e) => e.currentTarget.style.borderColor = '#B0BEC5'}

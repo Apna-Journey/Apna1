@@ -5,21 +5,21 @@ import axios from "axios";
 const Readmore = () => {
   const [formdata, setFormdata] = useState({
     title: "",
-    author: "",
+    link: "",
     descrip: "",
-    price: "",
+    year: "",
   });
 
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}api/book/` + id);
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}api/company/` + id);
       setFormdata({
         title: res.data.title,
-        author: res.data.author,
+        link: res.data.link,
         descrip: res.data.descrip,
-        price: res.data.price,
+        year: res.data.year,
       });
     };
     fetchData();
@@ -36,9 +36,9 @@ const Readmore = () => {
           <div className="col-sm-8 col-md-6">
             <div className="card w-100">
               <div className="card-body">
-                <p className="card-text fs-3">Company Name: {formdata.title}</p>
+                <p className="card-text fs-3">Company Name: {formdata.name}</p>
                 <hr />
-                <p className="card-text fs-5">Website Link: {formdata.author}</p>
+                <p className="card-text fs-5">Website Link: {formdata.link}</p>
                 <hr />
                 <p className="card-text" style={{ textAlign: "justify" }}>
                   Description: {formdata.descrip}
