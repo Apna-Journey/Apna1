@@ -59,8 +59,8 @@ const Footer = () => {
       <div style={sectionStyle}>
         <h4>Support</h4>
         <ul style={{ listStyle: 'none', padding: 0 }}>
-          {/* <li>ApnaJourney02@gmail.com</li>
-          <li>+91 7371083339</li> */}
+          <li>ApnaJourney02@gmail.com</li>
+          <li>+91 7371083339</li>
         </ul>
       </div>
 
