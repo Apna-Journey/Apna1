@@ -1,194 +1,395 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { VscTasklist } from "react-icons/vsc";
 import { BiSolidLike } from "react-icons/bi";
 import { LuUserPlus } from "react-icons/lu";
+import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
+// Hero Component
 const Hero = () => {
-  const textStyle = {
-    color: '#006400',
-    backgroundColor: '#fff5e6',
-    borderRadius: '15px',
-    padding: '20px',
-    margin: '0 auto',
-    maxWidth: '800px',
-    border: '2px solid #006400',
-    transition: 'all 0.3s ease',
-  };
+  const [currentWord, setCurrentWord] = useState(0);
+  const words = ['Startups', 'Entrepreneurs', 'Innovators', 'Visionaries'];
 
-  const textHoverStyle = {
-    backgroundColor: '#000',
-    color: '#fff',
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWord((prev) => (prev + 1) % words.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [words.length]);
 
   return (
-    <section className="hero" style={{ marginTop: '60px', textAlign: 'center', padding: '0 20px' }}>
-      <h1 style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', marginBottom: '20px' }}>Welcome to Apna Journey</h1>
-      <h4 style={{ fontSize: 'clamp(0.8rem, 3vw, 1rem)', marginBottom: '30px' }}>Create and manage your company profiles with ease.</h4>
-      <div 
-        style={textStyle}
-        onMouseEnter={(e) => Object.assign(e.currentTarget.style, textHoverStyle)}
-        onMouseLeave={(e) => Object.assign(e.currentTarget.style, textStyle)}
-      >
-        <p style={{ fontSize: 'clamp(0.9rem, 2.5vw, 1rem)' }}>
-          Apna Journey is a dynamic platform designed to simplify the creation and management of company profiles. Tailored for businesses of all sizes, it empowers users to effortlessly build and update their profiles, offering a seamless experience for startups. With an intuitive interface and robust features, Apna Journey streamlines the process of showcasing company details, sharing updates, and connecting with potential clients and partners. Its user-friendly tools enable efficient profile management, ensuring that businesses can maintain accurate and engaging profiles with minimal effort. Whether you are a small startup or a growing enterprise, Apna Journey is your go-to solution for professional profile management and enhanced business visibility.
-        </p>
+    <motion.section
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      style={{
+        background: 'linear-gradient(to right, #e0f7fa, #bbdefb)',
+        padding: '80px 20px',
+        textAlign: 'center',
+      }}
+    >
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          style={{
+            fontSize: '3rem',
+            fontWeight: '900',
+            color: '#1f2937',
+            marginBottom: '30px',
+          }}
+        >
+          Empowering
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={currentWord}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              style={{ color: '#10B981', marginLeft: '10px', display: 'inline-block' }}
+            >
+              {words[currentWord]}
+            </motion.span>
+          </AnimatePresence>
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          style={{
+            fontSize: '1.25rem',
+            color: '#4b5563',
+            marginBottom: '40px',
+          }}
+        >
+          Your journey to success starts here. Connect, grow, and thrive with APNA Journey.
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
+          style={{
+            backgroundColor: 'white',
+            padding: '24px',
+            borderRadius: '12px',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            transition: 'box-shadow 0.3s',
+          }}
+        >
+          <p style={{ color: '#4b5563', lineHeight: '1.6' }}>
+            APNA Journey is more than a platform; it's your launchpad to success. We provide the tools, connections, and insights you need to transform your vision into reality. Join a community of forward-thinkers and industry leaders who are shaping the future of business.
+          </p>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
+// TopNiches Component
 const TopNiches = () => {
+  const [hoveredService, setHoveredService] = useState(null);
+
   const services = [
     {
       id: 1,
+      icon: <VscTasklist style={{ fontSize: '2rem', marginBottom: '1rem', color: '#10B981' }} />,
       service: "Networking",
-      description: "Targets established companies looking to enhance their market presence, streamline profile management, and engage with industry peers and potential clients. This service is designed to support businesses that are already well-positioned in their industry, providing them with the tools to further expand their reach and influence. By connecting with other industry leaders and fostering meaningful collaborations, companies can solidify their brand, explore new market opportunities, and stay ahead of the competition. Whether it's about building stronger relationships with existing clients or exploring partnerships with new ones, this service offers a comprehensive approach to elevating your business presence.",
+      description: "Connect with industry leaders, explore partnerships, and expand your business reach.",
     },
     {
       id: 2,
+      icon: <BiSolidLike style={{ fontSize: '2rem', marginBottom: '1rem', color: '#3b82f6' }} />,
       service: "Startup Ecosystems",
-      description: "Focuses on emerging startups, providing a comprehensive platform for new businesses to establish and promote their profiles, connect with investors, and network with other entrepreneurs. This service is tailored to the unique needs of startups, offering them the tools and support they need to navigate the challenges of early-stage growth. By creating a strong and visible presence, startups can attract the attention of potential investors, collaborators, and customers. Additionally, the platform fosters a vibrant community of like-minded entrepreneurs, enabling startups to share insights, explore partnerships, and gain valuable exposure in the market. This service empowers startups to lay a solid foundation for their business journey, ensuring they have the resources and connections needed to thrive in a competitive landscape.",
+      description: "Join a vibrant community of entrepreneurs, attract investors, and accelerate your growth.",
     },
     {
       id: 3,
+      icon: <LuUserPlus style={{ fontSize: '2rem', marginBottom: '1rem', color: '#9333ea' }} />,
       service: "Professional Services",
-      description: "Assists firms in sectors like legal, accounting, and consulting by providing them with a robust platform to manage detailed profiles, showcase services, and connect with potential clients. This service is designed to cater to the specific needs of professional service firms, enabling them to present their expertise and unique value propositions in a compelling way. Through this platform, firms can highlight their accomplishments, display client testimonials, and outline their service offerings, all while maintaining a polished and professional online presence. Additionally, the platform facilitates connections with potential clients, partners, and industry peers, helping firms to expand their network, generate leads, and grow their business. By offering a comprehensive solution for profile management and client engagement, this service ensures that professional firms can maintain a strong market presence and continue to build their reputation in their respective fields.",
+      description: "Showcase your expertise, engage clients, and build your firm's reputation.",
     },
   ];
 
   return (
-    <section className="services" style={{ marginTop: '50px', textAlign: 'center', padding: '0 20px' }}>
-      <h3 
-        style={{ 
-          color: 'darkgreen', 
-          backgroundColor: 'white',
-          display: 'inline-block',
-          transition: 'color 0.3s ease',
-          padding: '5px 10px',
-          borderRadius: '5px',
-          fontSize: 'clamp(1.2rem, 4vw, 1.5rem)',
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.color = 'black'}
-        onMouseLeave={(e) => e.currentTarget.style.color = 'darkgreen'}
-      >
-        Prime Focus
-      </h3>
-      <div style={{ 
-        display: 'flex', 
-        flexDirection: 'column',
-        gap: '20px',
-        marginTop: '30px',
-        '@media (min-width: 1024px)': {
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          padding: '0 5%',
-        }
-      }}>
-        {services.map((element) => (
-          <div 
-            key={element.id}
-            style={{ 
-              backgroundColor: '#fff5e6',
-              border: '2px solid #006400',
-              borderRadius: '15px',
-              padding: '20px',
-              transition: 'all 0.3s ease',
-              flex: 1,
-              margin: '0 10px',
-              '@media (max-width: 1023px)': {
-                margin: '10px 0',
-              }
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'black';
-              e.currentTarget.style.color = 'white';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = '#fff5e6';
-              e.currentTarget.style.color = 'initial';
-            }}
-          >
-            <h4 style={{ fontSize: 'clamp(1rem, 3vw, 1.2rem)' }}>{element.service}</h4>
-            <p style={{ fontSize: 'clamp(0.8rem, 2.5vw, 1rem)' }}>{element.description}</p>
-          </div>
-        ))}
+    <section style={{ padding: '80px 20px', backgroundColor: '#f9fafb' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          style={{
+            fontSize: '2rem',
+            fontWeight: '700',
+            textAlign: 'center',
+            color: '#1f2937',
+            marginBottom: '40px',
+          }}
+        >
+          Our Prime Focus
+        </motion.h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
+          {services.map((service) => (
+            <motion.div
+              key={service.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: service.id * 0.2 }}
+              style={{
+                backgroundColor: 'white',
+                borderRadius: '12px',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                overflow: 'hidden',
+                padding: '24px',
+                textAlign: 'center',
+              }}
+              onMouseEnter={() => setHoveredService(service.id)}
+              onMouseLeave={() => setHoveredService(null)}
+            >
+              {service.icon}
+              <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '10px' }}>{service.service}</h3>
+              <p style={{ color: '#4b5563', marginBottom: '10px' }}>{service.description}</p>
+              <motion.div
+                initial={{ height: 0 }}
+                animate={{ height: hoveredService === service.id ? 'auto' : 0 }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  backgroundColor: '#d1fae5',
+                  padding: '16px',
+                  overflow: 'hidden',
+                  borderRadius: '8px',
+                }}
+              >
+                <p style={{ fontSize: '0.875rem', color: '#374151' }}>Learn more about our {service.service.toLowerCase()} solutions and how they can benefit your business.</p>
+              </motion.div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
+// HowItWorks Component
 const HowItWorks = () => {
-  const cardStyle = {
-    color: '#006400',
-    backgroundColor: '#fff5e6',
-    borderRadius: '15px',
-    padding: '20px',
-    margin: '20px auto',
-    maxWidth: '600px',
-    border: '2px solid #006400',
-    transition: 'all 0.3s ease',
-    textAlign: 'center',
-  };
-
-  const cardHoverStyle = {
-    backgroundColor: '#000',
-    color: '#fff',
-  };
+  const steps = [
+    { icon: <LuUserPlus style={{ fontSize: '2rem', color: '#10B981' }} />, title: "Create an Account", description: "Sign up and set up your company profile in minutes." },
+    { icon: <VscTasklist style={{ fontSize: '2rem', color: '#10B981' }} />, title: "Customize Your Profile", description: "Tailor your profile to showcase your unique offerings." },
+    { icon: <BiSolidLike style={{ fontSize: '2rem', color: '#10B981' }} />, title: "Start Networking", description: "Connect with peers, clients, and potential partners." },
+  ];
 
   return (
-    <section className="howItWorks" style={{ marginTop: '60px', marginBottom: '60px', padding: '0 20px' }}>
-      <h3 
-        style={{ 
-          color: 'darkgreen', 
-          textAlign: 'center',
-          marginBottom: '40px',
-          padding: '10px',
-          backgroundColor: 'white',
-          borderRadius: '15px',
-          transition: 'color 0.3s ease',
-          fontSize: 'clamp(1.2rem, 4vw, 1.5rem)',
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.color = 'black'}
-        onMouseLeave={(e) => e.currentTarget.style.color = 'darkgreen'}
-      >
-        How does it work?
-      </h3>
-      <div style={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center', 
-        gap: '20px',
-      }}>
-        {[
-          { icon: <LuUserPlus />, title: "Create an Account", description: "Sign up for a free account on Apna Journey as a business or startup. Set up your company profile in just a few minutes to start showcasing your details. Customize your profile to highlight your strengths and unique offerings." },
-          { icon: <VscTasklist />, title: "Preview", description: "Preview your profile and customize it to perfectly reflect your business's unique identity. Feel free to make adjustments and update details as needed, ensuring your profile always showcases the most accurate and engaging information about your company." },
-          { icon: <BiSolidLike />, title: "Networking", description: "Unlock new opportunities and grow your business through our robust networking capabilities. Our platform facilitates seamless interactions, helping you build a strong professional network and drive your business forward." },
-        ].map((item, index) => (
-          <div 
-            key={index}
-            style={cardStyle}
-            onMouseEnter={(e) => Object.assign(e.currentTarget.style, cardHoverStyle)}
-            onMouseLeave={(e) => Object.assign(e.currentTarget.style, cardStyle)}
-          >
-            <div className="icon" style={{ color: 'orange', fontSize: 'clamp(2rem, 6vw, 3rem)' }}>
-              {item.icon}
-            </div>
-            <h4 style={{ fontSize: 'clamp(1rem, 3vw, 1.2rem)' }}>{item.title}</h4>
-            <p style={{ fontSize: 'clamp(0.8rem, 2.5vw, 1rem)' }}>{item.description}</p>
-          </div>
-        ))}
+    <section style={{ padding: '80px 20px', backgroundColor: '#d1fae5' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          style={{
+            fontSize: '2rem',
+            fontWeight: '700',
+            textAlign: 'center',
+            color: '#1f2937',
+            marginBottom: '40px',
+          }}
+        >
+          How It Works
+        </motion.h2>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', gap: '20px' }}>
+          {steps.map((step, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              style={{
+                backgroundColor: 'white',
+                borderRadius: '12px',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                padding: '24px',
+                textAlign: 'center',
+                flex: '1 1 calc(33% - 20px)',
+                marginBottom: '20px',
+              }}
+            >
+              {step.icon}
+              <h3 style={{ fontSize: '1.25rem', fontWeight: '600', margin: '10px 0' }}>{step.title}</h3>
+              <p style={{ color: '#4b5563' }}>{step.description}</p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
+// SuccessMetrics Component
+const SuccessMetrics = () => {
+  const data = [
+    { name: 'Jan', value: 3000 },
+    { name: 'Feb', value: 5000 },
+    { name: 'Mar', value: 5500 },
+    { name: 'Apr', value: 6500 },
+    { name: 'May', value: 7000 },
+    { name: 'Jun', value: 8000 },
+  ];
+
+  return (
+    <section style={{ padding: '80px 20px', backgroundColor: '#f9fafb' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          style={{
+            fontSize: '2rem',
+            fontWeight: '700',
+            textAlign: 'center',
+            color: '#1f2937',
+            marginBottom: '40px',
+          }}
+        >
+          Success Metrics
+        </motion.h2>
+        <ResponsiveContainer width="100%" height={400}>
+          <LineChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Line type="monotone" dataKey="value" stroke="#10B981" strokeWidth={2} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </section>
+  );
+};
+
+// Testimonials Component
+const Testimonials = () => {
+  const testimonials = [
+    {
+      id: 1,
+      quote: "APNA Journey has transformed the way we connect with potential clients. Highly recommended!",
+      name: "Jane Doe",
+      position: "CEO, Innovate Inc.",
+    },
+    {
+      id: 2,
+      quote: "The platform's networking features have helped us expand our reach and grow our business.",
+      name: "John Smith",
+      position: "Founder, StartUp Central",
+    },
+    {
+      id: 3,
+      quote: "A game-changer for entrepreneurs looking to scale their ventures and build meaningful connections.",
+      name: "Emily Johnson",
+      position: "Director, Growth Labs",
+    },
+  ];
+
+  return (
+    <section style={{ padding: '80px 20px', backgroundColor: '#d1fae5' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          style={{
+            fontSize: '2rem',
+            fontWeight: '700',
+            textAlign: 'center',
+            color: '#1f2937',
+            marginBottom: '40px',
+          }}
+        >
+          What Our Users Say
+        </motion.h2>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {testimonials.map((testimonial) => (
+            <motion.div
+              key={testimonial.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: testimonial.id * 0.2 }}
+              style={{
+                backgroundColor: 'white',
+                borderRadius: '12px',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                padding: '24px',
+                textAlign: 'center',
+              }}
+            >
+              <FaQuoteLeft style={{ fontSize: '2rem', color: '#10B981', marginBottom: '10px' }} />
+              <p style={{ fontSize: '1rem', fontStyle: 'italic', color: '#4b5563', marginBottom: '10px' }}>
+                {testimonial.quote}
+              </p>
+              <FaQuoteRight style={{ fontSize: '2rem', color: '#10B981', marginBottom: '10px' }} />
+              <p style={{ fontSize: '1rem', fontWeight: '600', color: '#1f2937' }}>{testimonial.name}</p>
+              <p style={{ fontSize: '0.875rem', color: '#4b5563' }}>{testimonial.position}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// CallToAction Component
+const CallToAction = () => {
+  const navigate = useNavigate(); // Initialize the hook
+
+  return (
+    <section style={{ padding: '80px 20px', backgroundColor: '#bbdefb', textAlign: 'center' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          style={{ fontSize: '2rem', fontWeight: '700', color: '#1f2937', marginBottom: '30px' }}
+        >
+          Ready to Get Started?
+        </motion.h2>
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          style={{
+            backgroundColor: '#10B981',
+            color: 'white',
+            padding: '12px 24px',
+            borderRadius: '8px',
+            border: 'none',
+            fontSize: '1.25rem',
+            cursor: 'pointer',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            transition: 'background-color 0.3s',
+          }}
+          onMouseOver={(e) => (e.target.style.backgroundColor = '#059669')}
+          onMouseOut={(e) => (e.target.style.backgroundColor = '#10B981')}
+          onClick={() => navigate('/insert')} // Navigate to the /insert page
+        >
+          Join APNA Journey
+        </motion.button>
+      </div>
+    </section>
+  );
+};
+
+// App Component
 const Home = () => {
   return (
-    <>
+    <div>
       <Hero />
       <TopNiches />
       <HowItWorks />
-    </>
+      <SuccessMetrics />
+      <Testimonials />
+      <CallToAction />
+    </div>
   );
 };
 
