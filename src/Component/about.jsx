@@ -8,40 +8,41 @@ const About = () => {
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: '100vh',
-    backgroundColor: '#F4F4F4',
-    padding: '20px',
+    backgroundColor: '#f7f9fc', // Light grayish blue background
+    padding: '40px 20px',
     color: '#333',
   };
 
   const containerStyle = {
     width: '100%',
-    maxWidth: '800px',
-    padding: '30px',
-    borderRadius: '15px',
-    backgroundColor: '#FFFFFF',
-    boxShadow: '0 10px 20px rgba(0, 0, 0, 0.1)',
-    textAlign: 'center',
+    maxWidth: '900px',
+    padding: '40px',
+    borderRadius: '12px',
+    backgroundColor: '#ffffff',
+    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.05)',
     color: '#333',
   };
 
   const headingStyle = {
-    fontSize: '2.5rem',
-    color: '#FF6600', // Orange
-    marginBottom: '20px',
-    fontWeight: 'bold',
+    fontSize: '2.4rem',
+    color: '#2c3e50', // Dark blue
+    marginBottom: '30px',
+    fontWeight: '700',
+    borderBottom: '2px solid #e6eaee',
+    paddingBottom: '15px',
   };
 
   const paragraphStyle = {
-    fontSize: '1.2rem',
-    lineHeight: '1.6',
-    color: '#333',
-    marginBottom: '20px',
-    textAlign: 'left',
+    fontSize: '1.05rem',
+    lineHeight: '1.8',
+    color: '#4a5568', // Dark gray
+    marginBottom: '25px',
+    textAlign: 'justify',
   };
 
   const highlightStyle = {
-    fontWeight: 'bold',
-    color: '#007A33', // Green
+    fontWeight: '600',
+    color: '#38a169', // Soft green
   };
 
   return (
@@ -52,7 +53,7 @@ const About = () => {
           At <span style={highlightStyle}>Apna Journey</span>, we are committed to revolutionizing how businesses manage and showcase their profiles. Our platform is designed to simplify the process of creating and updating company profiles, ensuring that businesses of all sizes can maintain an engaging and professional online presence.
         </p>
         <p style={paragraphStyle}>
-          <span style={highlightStyle}>Apna Journey</span> offers a seamless experience for startups and established enterprises alike. Our intuitive interface and robust features empower users to effortlessly build and manage their profiles, share important updates, and connect with potential clients and partners. We understand the unique challenges faced by businesses in today’s competitive landscape, which is why we have tailored our platform to meet the needs of diverse businesses.
+          <span style={highlightStyle}>Apna Journey</span> offers a seamless experience for startups and established enterprises alike. Our intuitive interface and robust features empower users to effortlessly build and manage their profiles, share important updates, and connect with potential clients and partners. We understand the unique challenges faced by businesses in today's competitive landscape, which is why we have tailored our platform to meet the needs of diverse businesses.
         </p>
         <p style={paragraphStyle}>
           Whether you're a small startup or a growing enterprise, <span style={highlightStyle}>Apna Journey</span> provides you with the tools to create and maintain an accurate and engaging profile. Our goal is to help you enhance your business visibility and streamline your profile management with minimal effort.
