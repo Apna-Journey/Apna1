@@ -31,19 +31,40 @@ const Readmore = () => {
 
   return (
     <>
+      <style>
+        {`
+          @media print {
+            body * {
+              visibility: hidden;
+            }
+            .print-content, .print-content * {
+              visibility: visible;
+            }
+            .print-content {
+              position: absolute;
+              left: 0;
+              top: 0;
+              width: 100%;
+            }
+            .no-print {
+              display: none !important;
+            }
+          }
+        `}
+      </style>
       <div className="container mt-5 readmorebox">
         <div className="row justify-content-center">
           <div className="col-sm-8 col-md-6">
-            <div className="card w-100">
+            <div className="card w-100 print-content">
               <div className="card-body">
-                <p className="card-text fs-3">Company Name: {formdata.name}</p>
+                <p className="card-text fs-3">Company Name: {formdata.title}</p>
                 <hr />
                 <p className="card-text fs-5">Website Link: {formdata.link}</p>
                 <hr />
                 <p className="card-text" style={{ textAlign: "justify" }}>
                   Description: {formdata.descrip}
                 </p>
-                <button 
+                <button
                   className="btn btn-primary mt-3 no-print"
                   onClick={handlePrint}
                 >
