@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -39,13 +39,7 @@ const Insert = () => {
     },
   });
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      toast.error("You must be logged in to create a profile.");
-      navigate("/login");
-    }
-  }, [navigate]);
+  const [redirectToLogin, setRedirectToLogin] = useState(false); // State to manage login redirection
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -138,6 +132,14 @@ const Insert = () => {
     e.preventDefault();
 
     if (!validateForm()) return;
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      // If not logged in, redirect to login
+      setRedirectToLogin(true);
+      navigate("/login", { state: { formData } }); // Pass the formData to login
+      return;
+    }
 
     try {
       await axios.post(`${process.env.REACT_APP_BACKEND_URL}api/company`, formData);
@@ -292,7 +294,7 @@ const Insert = () => {
             <input
               key={index}
               type="text"
-              placeholder={`Statement ${index + 1}`}
+              placeholder="Statement"
               value={item.statement}
               onChange={(e) => handleWhyChooseUsChange(index, e.target.value)}
               style={styles.input}
@@ -327,28 +329,28 @@ const Insert = () => {
           <h3>Social Media Links</h3>
           <input
             type="url"
-            placeholder="LinkedIn Profile"
+            placeholder="LinkedIn URL"
             value={formData.socialMedia.linkedin}
             onChange={(e) => handleSocialMediaChange("linkedin", e.target.value)}
             style={styles.input}
           />
           <input
             type="url"
-            placeholder="Instagram Profile"
+            placeholder="Instagram URL"
             value={formData.socialMedia.instagram}
             onChange={(e) => handleSocialMediaChange("instagram", e.target.value)}
             style={styles.input}
           />
           <input
             type="url"
-            placeholder="Twitter Profile"
+            placeholder="Twitter URL"
             value={formData.socialMedia.twitter}
             onChange={(e) => handleSocialMediaChange("twitter", e.target.value)}
             style={styles.input}
           />
         </div>
 
-        <button type="submit" style={styles.button}>Create Profile</button>
+        <button type="submit" style={styles.button}>Submit Profile</button>
       </form>
       <ToastContainer />
     </div>

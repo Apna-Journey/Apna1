@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -22,6 +23,13 @@ const Login = () => {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("username", response.data.username);
       toast.success("Login successful!");
+
+      // Check if there is form data to create a profile
+      if (location.state?.formData) {
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}api/company`, location.state.formData);
+        toast.success("Company profile created successfully!");
+      }
+
       navigate("/");
     } catch (error) {
       toast.error("Login failed. Please check your credentials.");
