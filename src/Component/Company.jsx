@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import Menu from "./Menu";
 
 const Company = ({ item, deleteItem, i }) => {
-  // const Company = ({ item, i }) => {
   return (
     <div className="col-sm-6 col-md-4 col-lg-3">
       <div className="card">
         <div className="card-header lead d-flex justify-content-between">
-          <span>{item.title.length > 15 ? item.title.slice(0, 15) + '...' : item.title}</span>
+          <span>
+            {item.companyName.length > 15
+              ? item.companyName.slice(0, 15) + "..."
+              : item.companyName}
+          </span>
           <span style={{ cursor: "pointer" }}>
             <Menu deleteItem={deleteItem} id={item._id} />
           </span>
@@ -19,12 +22,16 @@ const Company = ({ item, deleteItem, i }) => {
           alt="Company logo"
         />
         <div className="card-body">
-          <p className="card-text fs-5">Website Link: {item.link}</p>
-          <p className="card-text text-justify">Description: {item.descrip.slice(0, 80)}...</p>
+          <p className="card-text fs-5">Website: {item.website}</p>
+          <p className="card-text text-justify">
+            Mission: {item.mission.slice(0, 80)}...
+          </p>
         </div>
         <div className="card-footer text-body-secondary d-flex justify-content-between align-items-center">
-          <div>Year of Foundation: {item.year}</div>
-          <Link className="btn btn-secondary btn-sm" to={`/readmore/${item._id}`}>Read More</Link>
+          <div>Founded: {item.foundingYear}</div>
+          <Link className="btn btn-secondary btn-sm" to={`/readmore/${item._id}`}>
+            Read More
+          </Link>
         </div>
       </div>
     </div>

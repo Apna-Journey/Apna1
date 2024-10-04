@@ -1,232 +1,356 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 const Insert = () => {
   const navigate = useNavigate();
-  const [formdata, setFormdata] = useState({
-    title: "",
-    link: "",
-    descrip: "",
-    year: ""
+  const [formData, setFormData] = useState({
+    companyName: "",
+    website: "",
+    foundingYear: "",
+    founderName: "",
+    industry: "",
+    employeeCount: "",
+    mission: "",
+    vision: "",
+    services: [
+      { title: "", description: "" },
+      { title: "", description: "" },
+      { title: "", description: "" },
+      { title: "", description: "" },
+    ],
+    whyChooseUs: [
+      { statement: "" },
+      { statement: "" },
+      { statement: "" },
+      { statement: "" },
+    ],
+    achievements: [
+      { title: "", description: "" },
+      { title: "", description: "" },
+      { title: "", description: "" },
+    ],
+    socialMedia: {
+      linkedin: "",
+      instagram: "",
+      twitter: "",
+    },
   });
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
       toast.error("You must be logged in to create a profile.");
-      navigate('/login');
+      navigate("/login");
     }
   }, [navigate]);
 
-  function fromdatafun(e) {
-    setFormdata((prev) => ({
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: value,
     }));
-  }
+  };
+
+  const handleServiceChange = (index, field, value) => {
+    setFormData((prev) => {
+      const updatedServices = [...prev.services];
+      updatedServices[index] = {
+        ...updatedServices[index],
+        [field]: value,
+      };
+      return { ...prev, services: updatedServices };
+    });
+  };
+
+  const handleWhyChooseUsChange = (index, value) => {
+    setFormData((prev) => {
+      const updatedWhyChooseUs = [...prev.whyChooseUs];
+      updatedWhyChooseUs[index] = { statement: value };
+      return { ...prev, whyChooseUs: updatedWhyChooseUs };
+    });
+  };
+
+  const handleAchievementChange = (index, field, value) => {
+    setFormData((prev) => {
+      const updatedAchievements = [...prev.achievements];
+      updatedAchievements[index] = {
+        ...updatedAchievements[index],
+        [field]: value,
+      };
+      return { ...prev, achievements: updatedAchievements };
+    });
+  };
+
+  const handleSocialMediaChange = (platform, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      socialMedia: {
+        ...prev.socialMedia,
+        [platform]: value,
+      },
+    }));
+  };
 
   function isValidURL(string) {
-    const urlPattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    const urlPattern = new RegExp(
+      "^(https?:\\/\\/)?(" +
+        "(([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" +
+        "((\\d{1,3}\\.){3}\\d{1,3}))" +
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" +
+        "(\\?[;&a-z\\d%_.~+=-]*)?" +
+        "(\\#[-a-z\\d_]*)?$",
+      "i"
+    );
     return !!urlPattern.test(string);
   }
 
-  async function submitfun(e) {
-    e.preventDefault();
-    if (!formdata.title || !formdata.link || !formdata.descrip || !formdata.year) {
-      toast.error("All fields are required");
-      return;
+  const validateForm = () => {
+    if (!formData.companyName || !formData.website || !formData.foundingYear) {
+      toast.error("All required fields must be filled");
+      return false;
     }
 
-    if (!isValidURL(formdata.link)) {
+    if (!isValidURL(formData.website)) {
       toast.error("Please enter a valid website URL");
-      return;
+      return false;
     }
+
+    // Validate services
+    if (formData.services.some((service) => !service.title || !service.description)) {
+      toast.error("Please fill all service details");
+      return false;
+    }
+
+    // Validate Why Choose Us statements
+    if (formData.whyChooseUs.some((item) => !item.statement)) {
+      toast.error("Please fill all 'Why Choose Us' statements");
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
 
     try {
-      await axios.post(`${process.env.REACT_APP_BACKEND_URL}api/company`, formdata);
-      toast.success("Insertion successful!");
-      setFormdata({
-        title: "",
-        link: "",
-        descrip: "",
-        year: ""
-      });
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}api/company`, formData);
+      toast.success("Company profile created successfully!");
       setTimeout(() => {
         navigate("/");
       }, 2000);
     } catch (error) {
-      toast.error("Error occurred during insertion!");
+      toast.error(error.response?.data?.message || "Error creating company profile");
     }
-  }
-
-  const pageStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '100vh',
-    backgroundColor: '#E0F7FA',
-    padding: '20px',
-    perspective: '1000px',
   };
 
-  const formStyle = {
-    width: '100%',
-    maxWidth: '550px',
-    padding: '40px',
-    borderRadius: '12px',
-    backgroundColor: '#FFFFFF',
-    boxShadow: '0 15px 30px rgba(0, 0, 0, 0.15)',
-    transform: 'rotateY(5deg)',
-    transition: 'all 0.5s ease',
-    textAlign: 'center',
-    position: 'relative',
-    '@media (max-width: 768px)': {
-      padding: '30px',
-      transform: 'none',
+  const styles = {
+    container: {
+      maxWidth: "800px",
+      margin: "0 auto",
+      padding: "20px",
+      backgroundColor: "#f5f5f5",
+      borderRadius: "8px",
+      boxShadow: "0 0 10px rgba(0,0,0,0.1)",
     },
-  };
-
-  const formHoverStyle = {
-    transform: 'rotateY(0)',
-  };
-
-  const titleStyle = {
-    color: '#00796B',
-    textAlign: 'center',
-    marginBottom: '25px',
-    fontSize: 'clamp(1.8rem, 4vw, 2.2rem)',
-    fontWeight: 'bold',
-    textShadow: '1px 1px 3px rgba(0,0,0,0.2)',
-  };
-
-  const inputStyle = {
-    width: '100%',
-    padding: '14px',
-    marginBottom: '18px',
-    border: '2px solid #B0BEC5',
-    borderRadius: '8px',
-    fontSize: '16px',
-    transition: 'border-color 0.3s ease',
-    '@media (max-width: 480px)': {
-      padding: '10px',
-      fontSize: '14px',
+    section: {
+      marginBottom: "20px",
+      padding: "15px",
+      backgroundColor: "#ffffff",
+      borderRadius: "5px",
     },
-  };
-
-  const labelStyle = {
-    display: 'block',
-    marginBottom: '8px',
-    color: '#455A64',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    '@media (max-width: 480px)': {
-      fontSize: '14px',
+    label: {
+      fontWeight: "bold",
+      marginBottom: "5px",
+      display: "block",
     },
-  };
-
-  const buttonStyle = {
-    width: '100%',
-    padding: '14px',
-    backgroundColor: '#FF7043',
-    color: '#FFFFFF',
-    border: 'none',
-    borderRadius: '8px',
-    fontSize: '16px',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-    '@media (max-width: 480px)': {
-      padding: '12px',
-      fontSize: '14px',
+    input: {
+      width: "100%",
+      padding: "8px",
+      marginBottom: "10px",
+      border: "1px solid #ddd",
+      borderRadius: "4px",
     },
-  };
-
-  const buttonHoverStyle = {
-    backgroundColor: '#FF5722',
+    button: {
+      backgroundColor: "#007bff",
+      color: "#ffffff",
+      padding: "10px 20px",
+      border: "none",
+      borderRadius: "4px",
+      cursor: "pointer",
+    },
   };
 
   return (
-    <div style={pageStyle}>
-      <div 
-        style={formStyle} 
-        onMouseEnter={(e) => Object.assign(e.currentTarget.style, formHoverStyle)}
-        onMouseLeave={(e) => Object.assign(e.currentTarget.style, formStyle)}
-      >
-        <h1 style={titleStyle}>Create Profile</h1>
-        <form onSubmit={submitfun}>
-          <div>
-            <label style={labelStyle}>Company Name and Industry</label>
-            <input
-              type="text"
-              style={inputStyle}
-              onChange={fromdatafun}
-              name="title"
-              value={formdata.title}
-              placeholder="Enter company name and industry"
-              onFocus={(e) => e.currentTarget.style.borderColor = '#00796B'}
-              onBlur={(e) => e.currentTarget.style.borderColor = '#B0BEC5'}
-            />
-          </div>
-          <div>
-            <label style={labelStyle}>Website Link</label>
-            <input
-              type="text"
-              style={inputStyle}
-              onChange={fromdatafun}
-              name="link"
-              value={formdata.link}
-              placeholder="Enter website link"
-              onFocus={(e) => e.currentTarget.style.borderColor = '#00796B'}
-              onBlur={(e) => e.currentTarget.style.borderColor = '#B0BEC5'}
-            />
-          </div>
-          <div>
-            <label style={labelStyle}>Description (No. of Employees, Location etc.)</label>
-            <input
-              type="text"
-              style={inputStyle}
-              onChange={fromdatafun}
-              name="descrip"
-              value={formdata.descrip}
-              placeholder="Enter company description"
-              onFocus={(e) => e.currentTarget.style.borderColor = '#00796B'}
-              onBlur={(e) => e.currentTarget.style.borderColor = '#B0BEC5'}
-            />
-          </div>
-          <div>
-            <label style={labelStyle}>Year of Foundation</label>
-            <input
-              type="number"
-              style={inputStyle}
-              onChange={fromdatafun}
-              name="year"
-              value={formdata.year}
-              placeholder="Enter foundation year"
-              onFocus={(e) => e.currentTarget.style.borderColor = '#00796B'}
-              onBlur={(e) => e.currentTarget.style.borderColor = '#B0BEC5'}
-            />
-          </div>
+    <div style={styles.container}>
+      <h2>Create Company Profile</h2>
+      <form onSubmit={handleSubmit}>
+        {/* Basic Information */}
+        <div style={styles.section}>
+          <h3>Basic Information</h3>
+          <input
+            type="text"
+            name="companyName"
+            placeholder="Company Name"
+            value={formData.companyName}
+            onChange={handleInputChange}
+            style={styles.input}
+          />
+          <input
+            type="url"
+            name="website"
+            placeholder="Company Website"
+            value={formData.website}
+            onChange={handleInputChange}
+            style={styles.input}
+          />
+          <input
+            type="number"
+            name="foundingYear"
+            placeholder="Founding Year"
+            value={formData.foundingYear}
+            onChange={handleInputChange}
+            style={styles.input}
+          />
+          <input
+            type="text"
+            name="founderName"
+            placeholder="Founder/CEO Name"
+            value={formData.founderName}
+            onChange={handleInputChange}
+            style={styles.input}
+          />
+          <input
+            type="text"
+            name="industry"
+            placeholder="Industry"
+            value={formData.industry}
+            onChange={handleInputChange}
+            style={styles.input}
+          />
+          <input
+            type="text"
+            name="employeeCount"
+            placeholder="Number of Employees"
+            value={formData.employeeCount}
+            onChange={handleInputChange}
+            style={styles.input}
+          />
+        </div>
 
-          <button 
-            type="submit" 
-            style={buttonStyle}
-            onMouseEnter={(e) => Object.assign(e.currentTarget.style, buttonHoverStyle)}
-            onMouseLeave={(e) => Object.assign(e.currentTarget.style, buttonStyle)}
-          >
-            Create Profile
-          </button>
-        </form>
+        {/* Mission and Vision */}
+        <div style={styles.section}>
+          <h3>Mission and Vision</h3>
+          <textarea
+            name="mission"
+            placeholder="Company Mission"
+            value={formData.mission}
+            onChange={handleInputChange}
+            style={{ ...styles.input, height: "100px" }}
+          />
+          <textarea
+            name="vision"
+            placeholder="Company Vision"
+            value={formData.vision}
+            onChange={handleInputChange}
+            style={{ ...styles.input, height: "100px" }}
+          />
+        </div>
 
-        <ToastContainer />
-      </div>
+        {/* Services */}
+        <div style={styles.section}>
+          <h3>Services</h3>
+          {formData.services.map((service, index) => (
+            <div key={index}>
+              <input
+                type="text"
+                placeholder="Service Title"
+                value={service.title}
+                onChange={(e) => handleServiceChange(index, "title", e.target.value)}
+                style={styles.input}
+              />
+              <textarea
+                placeholder="Service Description"
+                value={service.description}
+                onChange={(e) => handleServiceChange(index, "description", e.target.value)}
+                style={{ ...styles.input, height: "100px" }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Why Choose Us */}
+        <div style={styles.section}>
+          <h3>Why Choose Us</h3>
+          {formData.whyChooseUs.map((item, index) => (
+            <input
+              key={index}
+              type="text"
+              placeholder={`Statement ${index + 1}`}
+              value={item.statement}
+              onChange={(e) => handleWhyChooseUsChange(index, e.target.value)}
+              style={styles.input}
+            />
+          ))}
+        </div>
+
+        {/* Achievements */}
+        <div style={styles.section}>
+          <h3>Achievements</h3>
+          {formData.achievements.map((achievement, index) => (
+            <div key={index}>
+              <input
+                type="text"
+                placeholder="Achievement Title"
+                value={achievement.title}
+                onChange={(e) => handleAchievementChange(index, "title", e.target.value)}
+                style={styles.input}
+              />
+              <textarea
+                placeholder="Achievement Description"
+                value={achievement.description}
+                onChange={(e) => handleAchievementChange(index, "description", e.target.value)}
+                style={{ ...styles.input, height: "100px" }}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Social Media Links */}
+        <div style={styles.section}>
+          <h3>Social Media Links</h3>
+          <input
+            type="url"
+            placeholder="LinkedIn Profile"
+            value={formData.socialMedia.linkedin}
+            onChange={(e) => handleSocialMediaChange("linkedin", e.target.value)}
+            style={styles.input}
+          />
+          <input
+            type="url"
+            placeholder="Instagram Profile"
+            value={formData.socialMedia.instagram}
+            onChange={(e) => handleSocialMediaChange("instagram", e.target.value)}
+            style={styles.input}
+          />
+          <input
+            type="url"
+            placeholder="Twitter Profile"
+            value={formData.socialMedia.twitter}
+            onChange={(e) => handleSocialMediaChange("twitter", e.target.value)}
+            style={styles.input}
+          />
+        </div>
+
+        <button type="submit" style={styles.button}>Create Profile</button>
+      </form>
+      <ToastContainer />
     </div>
   );
 };

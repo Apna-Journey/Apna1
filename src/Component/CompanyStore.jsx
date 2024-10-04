@@ -5,6 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
 const CompanyStore = () => {
   const [dataarr, setDataarr] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,15 +16,13 @@ const CompanyStore = () => {
     callApi();
   }, []);
 
-  // Check if user is authenticated
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      toast.error("You must be logged in to create a profile.");
+      toast.error("You must be logged in to view company profiles.");
       navigate('/login');
     }
   }, [navigate]);
-
 
   const callApi = async () => {
     try {
@@ -60,8 +59,8 @@ const CompanyStore = () => {
 
   const shimmerItemStyle = {
     width: "100%",
-    maxWidth: "200px",
-    height: "300px",
+    maxWidth: "300px", // Increased to accommodate more content
+    height: "400px", // Increased to accommodate more content
     backgroundColor: "#f0f0f0",
     position: "relative",
     overflow: "hidden",
@@ -120,9 +119,24 @@ const CompanyStore = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredData = dataarr.filter((item) =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredData = dataarr.filter((item) => {
+    if (!item) return false;
+    
+    const searchableFields = [
+      item.companyName,
+      item.industry,
+      item.founderName,
+      item.mission,
+      item.vision,
+      ...(item.services?.map(service => service.title) || []),
+      ...(item.achievements?.map(achievement => achievement.title) || [])
+    ];
+
+    const searchString = searchTerm.toLowerCase();
+    return searchableFields.some(field => 
+      field && field.toString().toLowerCase().includes(searchString)
+    );
+  });
 
   return (
     <div className="container" style={{ marginTop: "50px" }}>
@@ -130,7 +144,7 @@ const CompanyStore = () => {
       <div style={searchBoxStyle}>
         <input
           type="text"
-          placeholder="Search..."
+          placeholder="Search"
           style={inputStyle}
           value={searchTerm}
           onChange={handleSearch}
@@ -146,10 +160,14 @@ const CompanyStore = () => {
               </div>
             ))}
           </div>
-        ) : (
+        ) : filteredData.length > 0 ? (
           filteredData.map((item, i) => (
-            <Company key={i} item={item} deleteItem={deleteItem} i={i} />
+            <Company key={item._id || i} item={item} deleteItem={deleteItem} i={i} />
           ))
+        ) : (
+          <div className="col-12 text-center">
+            <h3>No companies found matching your search</h3>
+          </div>
         )}
       </div>
       <ToastContainer />
