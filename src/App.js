@@ -21,10 +21,10 @@ function App() {
           <Nav />
           <Routes>
             <Route path='/' element={<CompanyStore />} />
+            <Route path="/home" element={<Home />} />
             <Route path='/login' element={<Login />} />
             <Route path='/about' element={<About />} />
             <Route path='/register' element={<Register />} />
-            <Route path="/home" element={<Home />} />
             <Route path='/footer' element={<Footer />} />
             <Route path='/insert' element={<Insert />} />
             <Route path='/update/:id' element={<Update />} />
