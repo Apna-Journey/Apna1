@@ -59,8 +59,8 @@ const CompanyStore = () => {
 
   const shimmerItemStyle = {
     width: "100%",
-    maxWidth: "300px", // Increased to accommodate more content
-    height: "400px", // Increased to accommodate more content
+    maxWidth: "300px", 
+    height: "400px", 
     backgroundColor: "#f0f0f0",
     position: "relative",
     overflow: "hidden",

@@ -24,7 +24,7 @@ const Login = () => {
       localStorage.setItem("username", response.data.username);
       toast.success("Login successful!");
 
-      // Check if there is form data to create a profile
+      
       if (location.state?.formData) {
         await axios.post(`${process.env.REACT_APP_BACKEND_URL}api/company`, location.state.formData);
         toast.success("Company profile created successfully!");

@@ -7,7 +7,7 @@ import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-// Hero Component
+
 const Hero = () => {
   const [currentWord, setCurrentWord] = useState(0);
   const words = ['Startups', 'Entrepreneurs', 'Innovators', 'Visionaries'];
@@ -89,7 +89,7 @@ const Hero = () => {
   );
 };
 
-// TopNiches Component
+
 const TopNiches = () => {
   const [hoveredService, setHoveredService] = useState(null);
 
@@ -173,7 +173,6 @@ const TopNiches = () => {
   );
 };
 
-// HowItWorks Component
 const HowItWorks = () => {
   const steps = [
     { icon: <LuUserPlus style={{ fontSize: '2rem', color: '#10B981' }} />, title: "Create an Account", description: "Sign up and set up your company profile in minutes." },
@@ -226,7 +225,6 @@ const HowItWorks = () => {
   );
 };
 
-// SuccessMetrics Component
 const SuccessMetrics = () => {
   const data = [
     { name: 'Jan', value: 3000 },
@@ -268,7 +266,6 @@ const SuccessMetrics = () => {
   );
 };
 
-// Testimonials Component
 const Testimonials = () => {
   const testimonials = [
     {
@@ -338,7 +335,6 @@ const Testimonials = () => {
   );
 };
 
-// CallToAction Component
 const CallToAction = () => {
   const navigate = useNavigate(); // Initialize the hook
 
@@ -379,7 +375,6 @@ const CallToAction = () => {
   );
 };
 
-// App Component
 const Home = () => {
   return (
     <div>
