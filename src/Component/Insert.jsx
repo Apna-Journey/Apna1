@@ -207,71 +207,95 @@ const Insert = () => {
     container: {
       maxWidth: "800px",
       margin: "0 auto",
-      padding: "20px",
-      backgroundColor: "#f5f5f5",
-      borderRadius: "8px",
-      boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+      padding: "30px",
+      backgroundColor: "#f0f8f0", // Light green background
+      borderRadius: "12px",
+      boxShadow: "0 0 20px rgba(0,0,0,0.1)",
     },
     section: {
-      marginBottom: "20px",
-      padding: "15px",
+      marginBottom: "30px",
+      padding: "20px",
       backgroundColor: "#ffffff",
-      borderRadius: "5px",
+      borderRadius: "8px",
+      boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
     },
     label: {
       fontWeight: "bold",
-      marginBottom: "5px",
+      marginBottom: "8px",
       display: "block",
+      color: "#2e7d32", // Dark green color for labels
     },
     input: {
       width: "100%",
-      padding: "8px",
-      marginBottom: "10px",
-      border: "1px solid #ddd",
-      borderRadius: "4px",
+      padding: "12px",
+      marginBottom: "15px",
+      border: "1px solid #c8e6c9", // Light green border
+      borderRadius: "6px",
+      fontSize: "16px",
+      transition: "border-color 0.3s ease",
     },
     button: {
-      backgroundColor: "#007bff",
+      backgroundColor: "#ff6f00", // Orange color for primary buttons
       color: "#ffffff",
-      padding: "10px 20px",
+      padding: "12px 24px",
       border: "none",
-      borderRadius: "4px",
+      borderRadius: "6px",
       cursor: "pointer",
+      fontSize: "16px",
+      fontWeight: "bold",
+      transition: "background-color 0.3s ease",
     },
     addButton: {
-      backgroundColor: "#28a745",
+      backgroundColor: "#4caf50", // Green color for add buttons
       color: "#ffffff",
-      padding: "5px 10px",
+      padding: "8px 16px",
       border: "none",
       borderRadius: "4px",
       cursor: "pointer",
-      marginBottom: "15px",
+      marginBottom: "20px",
+      fontSize: "14px",
+      transition: "background-color 0.3s ease",
     },
     removeButton: {
-      backgroundColor: "#dc3545",
+      backgroundColor: "#f44336", // Red color for remove buttons
       color: "#ffffff",
-      padding: "5px 10px",
+      padding: "8px 16px",
       border: "none",
       borderRadius: "4px",
       cursor: "pointer",
       marginLeft: "10px",
+      fontSize: "14px",
+      transition: "background-color 0.3s ease",
     },
     itemContainer: {
       position: "relative",
+      marginBottom: "25px",
+      padding: "20px",
+      border: "1px solid #c8e6c9", // Light green border
+      borderRadius: "6px",
+      backgroundColor: "#f9fff9", // Very light green background
+    },
+    heading: {
+      color: "#2e7d32", // Dark green color for headings
       marginBottom: "20px",
-      padding: "15px",
-      border: "1px solid #ddd",
-      borderRadius: "4px",
+      fontSize: "24px",
+      fontWeight: "bold",
+    },
+    subHeading: {
+      color: "#ff6f00", // Orange color for sub-headings
+      marginBottom: "15px",
+      fontSize: "20px",
+      fontWeight: "bold",
     },
   };
 
   return (
     <div style={styles.container}>
-      <h2>Create Company Profile</h2>
+      <h2 style={styles.heading}>Create Company Profile</h2>
       <form onSubmit={handleSubmit}>
         {/* Basic Information */}
         <div style={styles.section}>
-          <h3>Basic Information</h3>
+          <h3 style={styles.subHeading}>Basic Information</h3>
           <input
             type="text"
             name="companyName"
@@ -324,26 +348,26 @@ const Insert = () => {
 
         {/* Mission and Vision */}
         <div style={styles.section}>
-          <h3>Mission and Vision</h3>
+          <h3 style={styles.subHeading}>Mission and Vision</h3>
           <textarea
             name="mission"
             placeholder="Company Mission"
             value={formData.mission}
             onChange={handleInputChange}
-            style={{ ...styles.input, height: "100px" }}
+            style={{ ...styles.input, height: "120px" }}
           />
           <textarea
             name="vision"
             placeholder="Company Vision"
             value={formData.vision}
             onChange={handleInputChange}
-            style={{ ...styles.input, height: "100px" }}
+            style={{ ...styles.input, height: "120px" }}
           />
         </div>
 
         {/* Services */}
         <div style={styles.section}>
-          <h3>Services</h3>
+          <h3 style={styles.subHeading}>Services</h3>
           <button type="button" onClick={addService} style={styles.addButton}>
             + Add Service
           </button>
@@ -360,7 +384,7 @@ const Insert = () => {
                 placeholder="Service Description"
                 value={service.description}
                 onChange={(e) => handleServiceChange(index, "description", e.target.value)}
-                style={{ ...styles.input, height: "100px" }}
+                style={{ ...styles.input, height: "120px" }}
               />
               <button
                 type="button"
@@ -375,7 +399,7 @@ const Insert = () => {
 
         {/* Why Choose Us */}
         <div style={styles.section}>
-          <h3>Why Choose Us</h3>
+          <h3 style={styles.subHeading}>Why Choose Us</h3>
           <button type="button" onClick={addWhyChooseUs} style={styles.addButton}>
             + Add Statement
           </button>
@@ -401,7 +425,7 @@ const Insert = () => {
 
         {/* Achievements */}
         <div style={styles.section}>
-          <h3>Achievements</h3>
+          <h3 style={styles.subHeading}>Achievements</h3>
           <button type="button" onClick={addAchievement} style={styles.addButton}>
             + Add Achievement
           </button>
@@ -418,7 +442,7 @@ const Insert = () => {
                 placeholder="Achievement Description"
                 value={achievement.description}
                 onChange={(e) => handleAchievementChange(index, "description", e.target.value)}
-                style={{ ...styles.input, height: "100px" }}
+                style={{ ...styles.input, height: "120px" }}
               />
               <button
                 type="button"
@@ -433,7 +457,7 @@ const Insert = () => {
 
         {/* Social Media Links */}
         <div style={styles.section}>
-          <h3>Social Media Links</h3>
+          <h3 style={styles.subHeading}>Social Media Links</h3>
           <input
             type="url"
             placeholder="LinkedIn URL"
@@ -446,7 +470,7 @@ const Insert = () => {
             placeholder="Instagram URL"
             value={formData.socialMedia.instagram}
             onChange={(e) => handleSocialMediaChange("instagram", e.target.value)}
-            style={styles.input}
+style={styles.input}
           />
           <input
             type="url"
@@ -457,11 +481,37 @@ const Insert = () => {
           />
         </div>
 
-        <button type="submit" style={styles.button}>Submit Profile</button>
+        <button type="submit" style={{
+          ...styles.button,
+          width: '100%',
+          marginTop: '20px',
+          fontSize: '18px',
+          padding: '15px',
+          backgroundColor: '#ff6f00', // Orange color
+          transition: 'background-color 0.3s ease',
+          ':hover': {
+            backgroundColor: '#e65100', // Darker orange on hover
+          }
+        }}>
+          Submit Profile
+        </button>
       </form>
-      <ToastContainer />
+      <ToastContainer 
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };
 
 export default Insert;
+
+
