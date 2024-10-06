@@ -1,8 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Menu from "./Menu";
+import { toast } from "react-toastify";
 
 const Company = ({ item, deleteItem, i }) => {
+  const navigate = useNavigate();
+
+  const handleReadMore = () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      toast.error("Please log in to view company details");
+      navigate('/login');
+      return;
+    }
+    navigate(`/readmore/${item._id}`);
+  };
+
   return (
     <div className="col-sm-6 col-md-4 col-lg-3">
       <div className="card">
@@ -29,9 +42,12 @@ const Company = ({ item, deleteItem, i }) => {
         </div>
         <div className="card-footer text-body-secondary d-flex justify-content-between align-items-center">
           <div>Founded: {item.foundingYear}</div>
-          <Link className="btn btn-secondary btn-sm" to={`/readmore/${item._id}`}>
+          <button 
+            className="btn btn-secondary btn-sm" 
+            onClick={handleReadMore}
+          >
             Read More
-          </Link>
+          </button>
         </div>
       </div>
     </div>

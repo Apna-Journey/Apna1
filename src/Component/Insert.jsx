@@ -15,23 +15,9 @@ const Insert = () => {
     employeeCount: "",
     mission: "",
     vision: "",
-    services: [
-      { title: "", description: "" },
-      { title: "", description: "" },
-      { title: "", description: "" },
-      { title: "", description: "" },
-    ],
-    whyChooseUs: [
-      { statement: "" },
-      { statement: "" },
-      { statement: "" },
-      { statement: "" },
-    ],
-    achievements: [
-      { title: "", description: "" },
-      { title: "", description: "" },
-      { title: "", description: "" },
-    ],
+    services: [],
+    whyChooseUs: [],
+    achievements: [],
     socialMedia: {
       linkedin: "",
       instagram: "",
@@ -39,13 +25,28 @@ const Insert = () => {
     },
   });
 
-  const [redirectToLogin, setRedirectToLogin] = useState(false); // State to manage login redirection
+  const [redirectToLogin, setRedirectToLogin] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  // Services handlers
+  const addService = () => {
+    setFormData((prev) => ({
+      ...prev,
+      services: [...prev.services, { title: "", description: "" }]
+    }));
+  };
+
+  const removeService = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      services: prev.services.filter((_, i) => i !== index)
     }));
   };
 
@@ -60,12 +61,42 @@ const Insert = () => {
     });
   };
 
+  // Why Choose Us handlers
+  const addWhyChooseUs = () => {
+    setFormData((prev) => ({
+      ...prev,
+      whyChooseUs: [...prev.whyChooseUs, { statement: "" }]
+    }));
+  };
+
+  const removeWhyChooseUs = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      whyChooseUs: prev.whyChooseUs.filter((_, i) => i !== index)
+    }));
+  };
+
   const handleWhyChooseUsChange = (index, value) => {
     setFormData((prev) => {
       const updatedWhyChooseUs = [...prev.whyChooseUs];
       updatedWhyChooseUs[index] = { statement: value };
       return { ...prev, whyChooseUs: updatedWhyChooseUs };
     });
+  };
+
+  // Achievements handlers
+  const addAchievement = () => {
+    setFormData((prev) => ({
+      ...prev,
+      achievements: [...prev.achievements, { title: "", description: "" }]
+    }));
+  };
+
+  const removeAchievement = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      achievements: prev.achievements.filter((_, i) => i !== index)
+    }));
   };
 
   const handleAchievementChange = (index, field, value) => {
@@ -114,14 +145,35 @@ const Insert = () => {
     }
 
     // Validate services
-    if (formData.services.some((service) => !service.title || !service.description)) {
-      toast.error("Please fill all service details");
+    if (formData.services.length === 0) {
+      toast.error("Please add at least one service");
       return false;
     }
 
-    // Validate Why Choose Us statements
+    if (formData.services.some((service) => !service.title || !service.description)) {
+      toast.error("Please fill all service details completely");
+      return false;
+    }
+
+    // Validate Why Choose Us
+    if (formData.whyChooseUs.length === 0) {
+      toast.error("Please add at least one 'Why Choose Us' statement");
+      return false;
+    }
+
     if (formData.whyChooseUs.some((item) => !item.statement)) {
       toast.error("Please fill all 'Why Choose Us' statements");
+      return false;
+    }
+
+    // Validate Achievements
+    if (formData.achievements.length === 0) {
+      toast.error("Please add at least one achievement");
+      return false;
+    }
+
+    if (formData.achievements.some((achievement) => !achievement.title || !achievement.description)) {
+      toast.error("Please fill all achievement details completely");
       return false;
     }
 
@@ -135,9 +187,8 @@ const Insert = () => {
 
     const token = localStorage.getItem("token");
     if (!token) {
-      // If not logged in, redirect to login
       setRedirectToLogin(true);
-      navigate("/login", { state: { formData } }); // Pass the formData to login
+      navigate("/login", { state: { formData } });
       return;
     }
 
@@ -186,6 +237,31 @@ const Insert = () => {
       border: "none",
       borderRadius: "4px",
       cursor: "pointer",
+    },
+    addButton: {
+      backgroundColor: "#28a745",
+      color: "#ffffff",
+      padding: "5px 10px",
+      border: "none",
+      borderRadius: "4px",
+      cursor: "pointer",
+      marginBottom: "15px",
+    },
+    removeButton: {
+      backgroundColor: "#dc3545",
+      color: "#ffffff",
+      padding: "5px 10px",
+      border: "none",
+      borderRadius: "4px",
+      cursor: "pointer",
+      marginLeft: "10px",
+    },
+    itemContainer: {
+      position: "relative",
+      marginBottom: "20px",
+      padding: "15px",
+      border: "1px solid #ddd",
+      borderRadius: "4px",
     },
   };
 
@@ -268,8 +344,11 @@ const Insert = () => {
         {/* Services */}
         <div style={styles.section}>
           <h3>Services</h3>
+          <button type="button" onClick={addService} style={styles.addButton}>
+            + Add Service
+          </button>
           {formData.services.map((service, index) => (
-            <div key={index}>
+            <div key={index} style={styles.itemContainer}>
               <input
                 type="text"
                 placeholder="Service Title"
@@ -283,6 +362,13 @@ const Insert = () => {
                 onChange={(e) => handleServiceChange(index, "description", e.target.value)}
                 style={{ ...styles.input, height: "100px" }}
               />
+              <button
+                type="button"
+                onClick={() => removeService(index)}
+                style={styles.removeButton}
+              >
+                Remove
+              </button>
             </div>
           ))}
         </div>
@@ -290,23 +376,37 @@ const Insert = () => {
         {/* Why Choose Us */}
         <div style={styles.section}>
           <h3>Why Choose Us</h3>
+          <button type="button" onClick={addWhyChooseUs} style={styles.addButton}>
+            + Add Statement
+          </button>
           {formData.whyChooseUs.map((item, index) => (
-            <input
-              key={index}
-              type="text"
-              placeholder="Statement"
-              value={item.statement}
-              onChange={(e) => handleWhyChooseUsChange(index, e.target.value)}
-              style={styles.input}
-            />
+            <div key={index} style={styles.itemContainer}>
+              <input
+                type="text"
+                placeholder="Statement"
+                value={item.statement}
+                onChange={(e) => handleWhyChooseUsChange(index, e.target.value)}
+                style={styles.input}
+              />
+              <button
+                type="button"
+                onClick={() => removeWhyChooseUs(index)}
+                style={styles.removeButton}
+              >
+                Remove
+              </button>
+            </div>
           ))}
         </div>
 
         {/* Achievements */}
         <div style={styles.section}>
           <h3>Achievements</h3>
+          <button type="button" onClick={addAchievement} style={styles.addButton}>
+            + Add Achievement
+          </button>
           {formData.achievements.map((achievement, index) => (
-            <div key={index}>
+            <div key={index} style={styles.itemContainer}>
               <input
                 type="text"
                 placeholder="Achievement Title"
@@ -320,6 +420,13 @@ const Insert = () => {
                 onChange={(e) => handleAchievementChange(index, "description", e.target.value)}
                 style={{ ...styles.input, height: "100px" }}
               />
+              <button
+                type="button"
+                onClick={() => removeAchievement(index)}
+                style={styles.removeButton}
+              >
+                Remove
+              </button>
             </div>
           ))}
         </div>

@@ -4,25 +4,15 @@ import Company from "./Company";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Search } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 const CompanyStore = () => {
   const [dataarr, setDataarr] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     callApi();
   }, []);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      toast.error("You must be logged in to view company profiles.");
-      navigate('/login');
-    }
-  }, [navigate]);
 
   const callApi = async () => {
     try {
